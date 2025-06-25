@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -330,7 +330,6 @@ function FootballPitch({ players, onDropPlayer, formationPositions }) {
     );
 }
 
-// --- NEW: Button component for a consistent style ---
 function ActionButton({ onClick, title, children, color = '#fbbf24' }) {
     const [isHover, setIsHover] = useState(false);
     return (
@@ -382,7 +381,7 @@ function UefaValidationStatus({ eligiblePlayers }) {
     let status = {
         level: 'REDUCED_SIZE',
         message: `Squad is eligible for registration with a reduced size of ${maxSquadSize}.`,
-        color: '#60a5fa' // Blue for intermediate state
+        color: '#60a5fa'
     };
 
     if (isInvalid) {
@@ -481,61 +480,47 @@ export default function App() {
     }));
   }, [selectedTeam, playerLocations]);
 
-  useEffect(() => {
-    if (selectedTeam) {
-      handleResetSquad(); // Reset squad when team changes
-    } else {
-      setPlayerLocations({});
-    }
-  }, [selectedTeam]);
-  
-  useEffect(() => {
-    if (errorMessage) {
-      const timer = setTimeout(() => setErrorMessage(''), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [errorMessage]);
-
   const pitchPositions = useMemo(() => FORMATIONS[selectedFormation], [selectedFormation]);
   const unregisteredPlayers = useMemo(() => allPlayersForTeam.filter(p => p.location === PLAYER_LOCATIONS.UNREGISTERED), [allPlayersForTeam]);
   const substitutePlayers = useMemo(() => allPlayersForTeam.filter(p => p.location === PLAYER_LOCATIONS.SUBS), [allPlayersForTeam]);
   const startingElevenPlayers = useMemo(() => allPlayersForTeam.filter(p => pitchPositions.some(pos => pos.id === p.location)), [allPlayersForTeam, pitchPositions]);
   const eligiblePlayers = useMemo(() => [...substitutePlayers, ...startingElevenPlayers], [substitutePlayers, startingElevenPlayers]);
 
-  const calculateMaxUefaSquadSize = (currentEligiblePlayers) => {
-    const clubTrainedCount = currentEligiblePlayers.filter(p => p.trainingStatus === TRAINING_STATUS.CLUB).length;
-    const assocTrainedCount = currentEligiblePlayers.filter(p => p.trainingStatus === TRAINING_STATUS.ASSOC).length;
-    const declarableAssocCount = Math.min(assocTrainedCount, UEFA_RULES.MAX_ASSOC_IN_QUOTA);
-    const declarableHomegrownCount = clubTrainedCount + declarableAssocCount;
-    const homegrownDeficit = Math.max(0, UEFA_RULES.MIN_TOTAL_HOMEGROWN - declarableHomegrownCount);
-    return UEFA_RULES.MAX_SQUAD_SIZE - homegrownDeficit;
-  };
+  // --- STABILIZED FUNCTIONS ---
 
-  const handleFormationChange = (newFormation) => {
-    handleClearPitch();
-    setSelectedFormation(newFormation);
-  };
-    
-  // --- NEW: Handlers for the control buttons ---
-  const handleClearPitch = () => {
+  const handleResetSquad = useCallback(() => {
+    const initialLocations = {};
+    dummyPlayers.filter(p => p.teamId === selectedTeam).forEach(player => {
+        initialLocations[player.id] = PLAYER_LOCATIONS.UNREGISTERED;
+    });
+    setPlayerLocations(initialLocations);
+    setErrorMessage('');
+  }, [selectedTeam]);
+
+  const handleClearPitch = useCallback(() => {
     const newLocations = { ...playerLocations };
     startingElevenPlayers.forEach(player => {
         newLocations[player.id] = PLAYER_LOCATIONS.SUBS;
     });
     setPlayerLocations(newLocations);
     setErrorMessage('');
-  };
+  }, [playerLocations, startingElevenPlayers]);
 
-  const handleResetSquad = () => {
-    const initialLocations = {};
-    allPlayersForTeam.forEach(player => {
-        initialLocations[player.id] = PLAYER_LOCATIONS.UNREGISTERED;
-    });
-    setPlayerLocations(initialLocations);
-    setErrorMessage('');
-  };
+  const handleFormationChange = useCallback((newFormation) => {
+    handleClearPitch();
+    setSelectedFormation(newFormation);
+  }, [handleClearPitch]);
+  
+  const calculateMaxUefaSquadSize = useCallback((currentEligiblePlayers) => {
+    const clubTrainedCount = currentEligiblePlayers.filter(p => p.trainingStatus === TRAINING_STATUS.CLUB).length;
+    const assocTrainedCount = currentEligiblePlayers.filter(p => p.trainingStatus === TRAINING_STATUS.ASSOC).length;
+    const declarableAssocCount = Math.min(assocTrainedCount, UEFA_RULES.MAX_ASSOC_IN_QUOTA);
+    const declarableHomegrownCount = clubTrainedCount + declarableAssocCount;
+    const homegrownDeficit = Math.max(0, UEFA_RULES.MIN_TOTAL_HOMEGROWN - declarableHomegrownCount);
+    return UEFA_RULES.MAX_SQUAD_SIZE - homegrownDeficit;
+  }, []);
 
-  const onDropPlayer = (playerId, toLocation) => {
+  const onDropPlayer = useCallback((playerId, toLocation) => {
     setErrorMessage('');
     const playerToMove = allPlayersForTeam.find(p => p.id === playerId);
     const fromLocation = playerToMove.location;
@@ -591,7 +576,25 @@ export default function App() {
     newLocations[playerId] = toLocation;
 
     setPlayerLocations(newLocations);
-  };
+  }, [allPlayersForTeam, eligiblePlayers, playerLocations, pitchPositions, ruleSet, calculateMaxUefaSquadSize]);
+
+
+  // --- useEffect Hooks ---
+  
+  useEffect(() => {
+    if (selectedTeam) {
+      handleResetSquad();
+    } else {
+      setPlayerLocations({});
+    }
+  }, [selectedTeam, handleResetSquad]);
+  
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => setErrorMessage(''), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -632,10 +635,8 @@ export default function App() {
             <div style={{marginTop: '20px', padding: '20px', border: '2px solid #334155', borderRadius: '12px', backgroundColor: '#1e293b' }}>
                  <h2 style={{ color: '#fbbf24', textAlign: 'center', fontSize: '1.5em', marginTop: 0, borderBottom: '1px solid #334155', paddingBottom: '15px' }}>Eligible Squad (List A)</h2>
                  
-                 {/* --- NEW: Main content area with buttons and pitch --- */}
                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '20px', marginTop: '20px' }}>
                     
-                    {/* --- NEW: Button Controls --- */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '180px' }}>
                         <ActionButton 
                             onClick={handleClearPitch}
@@ -652,7 +653,6 @@ export default function App() {
                         </ActionButton>
                     </div>
 
-                    {/* The FootballPitch component now sits inside the flex container */}
                     <FootballPitch players={startingElevenPlayers} onDropPlayer={onDropPlayer} formationPositions={pitchPositions} />
                 </div>
                  
@@ -665,7 +665,6 @@ export default function App() {
             
             {errorMessage && <p style={{ color: '#f87171', fontWeight: 'bold', textAlign: 'center', marginTop: '15px', padding: '10px', backgroundColor: '#442222', borderRadius: '6px' }}>{errorMessage}</p>}
             
-            {/* Conditionally render the correct validation component */}
             {ruleSet === 'UEFA' ? (
                 <UefaValidationStatus eligiblePlayers={eligiblePlayers} />
             ) : (
