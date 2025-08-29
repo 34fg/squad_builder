@@ -722,15 +722,7 @@ export default function App() {
 
         {/* --- Top Control Bar --- */}
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 10 }}>
-          <button
-            onClick={handleScreenshot}
-            style={{
-              background: '#38bdf8', color: '#fff', border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600, cursor: 'pointer', fontSize: 16, boxShadow: '0 2px 8px #0ea5e9a0', marginRight: 8
-            }}
-            title="Take a screenshot of your squad and save as myteam.png"
-          >
-            📸 Save Squad as Image
-          </button>
+          {/* Screenshot button moved under Reset Squad */}
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 12, marginBottom: 20, padding: '15px', backgroundColor: '#1e293b', borderRadius: '8px' }}>
           <select value={selectedLeague} onChange={(e) => {setSelectedLeague(e.target.value); setSelectedTeam('');}} style={{ padding: '8px', borderRadius: '4px', border: '1px solid #334155', backgroundColor: '#0f172a', color: '#fff' }}>
@@ -778,6 +770,13 @@ export default function App() {
                 color="#f87171"
               >
                 Reset Squad
+              </ActionButton>
+              <ActionButton
+                onClick={handleScreenshot}
+                title="Take a screenshot of your squad and save as myteam.png"
+                color="#38bdf8"
+              >
+                📸 Save Squad as Image
               </ActionButton>
             </div>
             <FootballPitch players={startingElevenPlayers} onDropPlayer={onDropPlayer} formationPositions={pitchPositions} />
