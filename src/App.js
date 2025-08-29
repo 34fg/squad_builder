@@ -1,5 +1,17 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+// Screenshot functionality
+// html2canvas will be loaded via CDN in public/index.html
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
+
+// Helper to trigger download
+function downloadImage(dataUrl, filename) {
+  const link = document.createElement('a');
+  link.href = dataUrl;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 // --- Constants, Data, and Configuration ---
@@ -547,6 +559,31 @@ function SuperLigValidationStatus({ eligiblePlayers }) {
 
 
 export default function App() {
+
+  // Screenshot handler
+  const handleScreenshot = async () => {
+    // Dynamically load html2canvas if not present
+    let html2canvas = window.html2canvas;
+    if (!html2canvas) {
+      // fallback: try to load from CDN
+      await new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+      html2canvas = window.html2canvas;
+    }
+    const squadArea = document.getElementById('squad-main-area');
+    if (!squadArea || !html2canvas) {
+      alert('Screenshot area or html2canvas not found!');
+      return;
+    }
+    const canvas = await html2canvas(squadArea, { backgroundColor: '#0f172a', useCORS: true });
+    const dataUrl = canvas.toDataURL('image/png');
+    downloadImage(dataUrl, 'myteam.png');
+  };
   const [selectedLeague, setSelectedLeague] = useState('');
   const [selectedTeam, setSelectedTeam] = useState('');
   const [playerLocations, setPlayerLocations] = useState({});
@@ -680,10 +717,21 @@ export default function App() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div style={{ backgroundColor: '#0f172a', color: '#e2e8f0', minHeight: '100vh', padding: 20, fontFamily: 'sans-serif' }}>
+  <div style={{ backgroundColor: '#0f172a', color: '#e2e8f0', minHeight: '100vh', padding: 20, fontFamily: 'sans-serif' }}>
         <h1 style={{ color: '#e2e8f0', textAlign: 'center', letterSpacing: '1px' }}>Football Squad Builder</h1>
 
         {/* --- Top Control Bar --- */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 10 }}>
+          <button
+            onClick={handleScreenshot}
+            style={{
+              background: '#38bdf8', color: '#fff', border: 'none', borderRadius: 6, padding: '8px 18px', fontWeight: 600, cursor: 'pointer', fontSize: 16, boxShadow: '0 2px 8px #0ea5e9a0', marginRight: 8
+            }}
+            title="Take a screenshot of your squad and save as myteam.png"
+          >
+            📸 Save Squad as Image
+          </button>
+        </div>
         <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 12, marginBottom: 20, padding: '15px', backgroundColor: '#1e293b', borderRadius: '8px' }}>
           <select value={selectedLeague} onChange={(e) => {setSelectedLeague(e.target.value); setSelectedTeam('');}} style={{ padding: '8px', borderRadius: '4px', border: '1px solid #334155', backgroundColor: '#0f172a', color: '#fff' }}>
             <option value="">-- Select Competition --</option>
@@ -708,52 +756,47 @@ export default function App() {
 
         {!selectedTeam && <p style={{ color: '#cbd5e1', textAlign: 'center', fontSize: '1.2em' }}>Please select a competition and a team to begin.</p>}
 
-        {selectedTeam && (
-          <>
-            <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.UNREGISTERED} title="Unregistered Players" titleColor="#94a3b8">
-                {unregisteredPlayers.map(p => <Player key={p.id} player={p} />)}
-            </DropArea>
-            
-            <div style={{marginTop: '20px', padding: '20px', border: '2px solid #334155', borderRadius: '12px', backgroundColor: '#1e293b' }}>
-                 <h2 style={{ color: '#fbbf24', textAlign: 'center', fontSize: '1.5em', marginTop: 0, borderBottom: '1px solid #334155', paddingBottom: '15px' }}>Eligible Squad (List A)</h2>
-                 
-                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '20px', marginTop: '20px' }}>
-                    
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '180px' }}>
-                        <ActionButton 
-                            onClick={handleClearPitch}
-                            title="Move all players from the pitch to the bench"
-                        >
-                           Clear Pitch
-                        </ActionButton>
-                        <ActionButton 
-                            onClick={handleResetSquad}
-                            title="Move all registered players back to the unregistered list"
-                            color="#f87171"
-                        >
-                            Reset Squad
-                        </ActionButton>
-                    </div>
-
-                    <FootballPitch players={startingElevenPlayers} onDropPlayer={onDropPlayer} formationPositions={pitchPositions} />
-                </div>
-                 
-                 <div style={{marginTop: '20px'}}>
-                    <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.SUBS} title="Substitutes" titleColor="#fbbf24">
-                        {substitutePlayers.map(p => <Player key={p.id} player={p} />)}
-                    </DropArea>
-                 </div>
+    {selectedTeam && (
+      <>
+      <div id="squad-main-area">
+        <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.UNREGISTERED} title="Unregistered Players" titleColor="#94a3b8">
+          {unregisteredPlayers.map(p => <Player key={p.id} player={p} />)}
+        </DropArea>
+        <div style={{marginTop: '20px', padding: '20px', border: '2px solid #334155', borderRadius: '12px', backgroundColor: '#1e293b' }}>
+           <h2 style={{ color: '#fbbf24', textAlign: 'center', fontSize: '1.5em', marginTop: 0, borderBottom: '1px solid #334155', paddingBottom: '15px' }}>Eligible Squad (List A)</h2>
+           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '20px', marginTop: '20px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '180px' }}>
+              <ActionButton 
+                onClick={handleClearPitch}
+                title="Move all players from the pitch to the bench"
+              >
+               Clear Pitch
+              </ActionButton>
+              <ActionButton 
+                onClick={handleResetSquad}
+                title="Move all registered players back to the unregistered list"
+                color="#f87171"
+              >
+                Reset Squad
+              </ActionButton>
             </div>
-            
-            {errorMessage && <p style={{ color: '#f87171', fontWeight: 'bold', textAlign: 'center', marginTop: '15px', padding: '10px', backgroundColor: '#442222', borderRadius: '6px' }}>{errorMessage}</p>}
-            
-            {ruleSet === 'UEFA' ? (
-                <UefaValidationStatus eligiblePlayers={eligiblePlayers} />
-            ) : (
-                <SuperLigValidationStatus eligiblePlayers={eligiblePlayers} />
-            )}
-          </>
-        )}
+            <FootballPitch players={startingElevenPlayers} onDropPlayer={onDropPlayer} formationPositions={pitchPositions} />
+          </div>
+           <div style={{marginTop: '20px'}}>
+            <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.SUBS} title="Substitutes" titleColor="#fbbf24">
+              {substitutePlayers.map(p => <Player key={p.id} player={p} />)}
+            </DropArea>
+           </div>
+        </div>
+      </div>
+      {errorMessage && <p style={{ color: '#f87171', fontWeight: 'bold', textAlign: 'center', marginTop: '15px', padding: '10px', backgroundColor: '#442222', borderRadius: '6px' }}>{errorMessage}</p>}
+      {ruleSet === 'UEFA' ? (
+        <UefaValidationStatus eligiblePlayers={eligiblePlayers} />
+      ) : (
+        <SuperLigValidationStatus eligiblePlayers={eligiblePlayers} />
+      )}
+      </>
+    )}
       </div>
     </DndProvider>
   );
