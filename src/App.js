@@ -291,18 +291,13 @@ function getFlagEmoji(countryName) {
 }
 
 function PitchAndStatsPanel({ players, onDropPlayer, formationPositions }) {
-  // Pitch positions and players on pitch
-  const playersOnPitch = formationPositions.map(pos => ({
-    ...pos,
-    player: players.find(p => p.location === pos.id)
-  }));
-  // Only count players actually on the pitch
-  const pitchPlayers = playersOnPitch.map(p => p.player).filter(Boolean);
+  // Use all registered players for stats
+  const squadPlayers = players;
   // Average age
-  const avgAge = pitchPlayers.length ? (pitchPlayers.reduce((sum, p) => sum + (p.age || 0), 0) / pitchPlayers.length).toFixed(1) : '-';
+  const avgAge = squadPlayers.length ? (squadPlayers.reduce((sum, p) => sum + (p.age || 0), 0) / squadPlayers.length).toFixed(1) : '-';
   // Country stats
   const countryCounts = {};
-  pitchPlayers.forEach(p => {
+  squadPlayers.forEach(p => {
     // Use first country if multiple
   const mainCountry = (p.nationality || '').split(/[/ ]/)[0];
     countryCounts[mainCountry] = (countryCounts[mainCountry] || 0) + 1;
