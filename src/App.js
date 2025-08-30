@@ -11,6 +11,8 @@ import {
   TRAINING_STATUS,
   POSITIONS
 } from './database';
+// Import formations
+import { FORMATIONS } from './formations';
 
 // Helper to trigger download
 function downloadImage(dataUrl, filename) {
@@ -46,100 +48,6 @@ const SUPER_LIG_RULES = {
   MAX_SQUAD_SIZE: 26,
   MAX_FOREIGNERS_TOTAL: 14, // 12 + 2 U21
   MAX_FOREIGNERS_OVER_21: 12,
-};
-
-const FORMATIONS = {
-    '4-3-3': [
-        { id: 'gk', label: 'GK', top: '90%', left: '50%' },
-        { id: 'rb', label: 'RB', top: '70%', left: '85%' },
-        { id: 'rcb', label: 'RCB', top: '75%', left: '65%' },
-        { id: 'lcb', label: 'LCB', top: '75%', left: '35%' },
-        { id: 'lb', label: 'LB', top: '70%', left: '15%' },
-        { id: 'rcm', label: 'RCM', top: '50%', left: '70%' },
-        { id: 'cm', label: 'CM', top: '55%', left: '50%' },
-        { id: 'lcm', label: 'LCM', top: '50%', left: '30%' },
-        { id: 'rw', label: 'RW', top: '30%', left: '80%' },
-        { id: 'st', label: 'ST', top: '25%', left: '50%' },
-        { id: 'lw', label: 'LW', top: '30%', left: '20%' },
-    ],
-    '4-4-2': [
-        { id: 'gk', label: 'GK', top: '90%', left: '50%' },
-        { id: 'rb', label: 'RB', top: '70%', left: '88%' },
-        { id: 'rcb', label: 'RCB', top: '75%', left: '65%' },
-        { id: 'lcb', label: 'LCB', top: '75%', left: '35%' },
-        { id: 'lb', label: 'LB', top: '70%', left: '12%' },
-        { id: 'rm', label: 'RM', top: '50%', left: '80%' },
-        { id: 'rcm', label: 'RCM', top: '50%', left: '60%' },
-        { id: 'lcm', label: 'LCM', top: '50%', left: '40%' },
-        { id: 'lm', label: 'LM', top: '50%', left: '20%' },
-        { id: 'rst', label: 'RST', top: '25%', left: '60%' },
-        { id: 'lst', label: 'LST', top: '25%', left: '40%' },
-    ],
-    '4-2-3-1': [
-        { id: 'gk', label: 'GK', top: '90%', left: '50%' },
-        { id: 'rb', label: 'RB', top: '70%', left: '85%' },
-        { id: 'rcb', label: 'RCB', top: '75%', left: '65%' },
-        { id: 'lcb', label: 'LCB', top: '75%', left: '35%' },
-        { id: 'lb', label: 'LB', top: '70%', left: '15%' },
-        { id: 'rdm', label: 'RDM', top: '60%', left: '65%' },
-        { id: 'ldm', label: 'LDM', top: '60%', left: '35%' },
-        { id: 'ram', label: 'RAM', top: '40%', left: '80%' },
-        { id: 'cam', label: 'CAM', top: '45%', left: '50%' },
-        { id: 'lam', label: 'LAM', top: '40%', left: '20%' },
-        { id: 'st', label: 'ST', top: '20%', left: '50%' },
-    ],
-    '3-4-3': [
-        { id: 'gk', label: 'GK', top: '90%', left: '50%' },
-        { id: 'rcb', label: 'RCB', top: '75%', left: '75%' },
-        { id: 'cb', label: 'CB', top: '80%', left: '50%' },
-        { id: 'lcb', label: 'LCB', top: '75%', left: '25%' },
-        { id: 'rm', label: 'RM', top: '50%', left: '85%' },
-        { id: 'rcm', label: 'RCM', top: '55%', left: '65%' },
-        { id: 'lcm', label: 'LCM', top: '55%', left: '35%' },
-        { id: 'lm', label: 'LM', top: '50%', left: '15%' },
-        { id: 'rw', label: 'RW', top: '25%', left: '75%' },
-        { id: 'st', label: 'ST', top: '20%', left: '50%' },
-        { id: 'lw', label: 'LW', top: '25%', left: '25%' },
-    ],
-    '4-4-1-1': [
-        { id: 'gk', label: 'GK', top: '90%', left: '50%' },
-        { id: 'rb', label: 'RB', top: '70%', left: '88%' },
-        { id: 'rcb', label: 'RCB', top: '75%', left: '65%' },
-        { id: 'lcb', label: 'LCB', top: '75%', left: '35%' },
-        { id: 'lb', label: 'LB', top: '70%', left: '12%' },
-        { id: 'rm', label: 'RM', top: '50%', left: '80%' },
-        { id: 'rcm', label: 'RCM', top: '55%', left: '60%' },
-        { id: 'lcm', label: 'LCM', top: '55%', left: '40%' },
-        { id: 'lm', label: 'LM', top: '50%', left: '20%' },
-        { id: 'cf', label: 'CF', top: '35%', left: '50%' },
-        { id: 'st', label: 'ST', top: '20%', left: '50%' },
-    ],
-     '3-4-2-1': [
-        { id: 'gk', label: 'GK', top: '90%', left: '50%' },
-        { id: 'rcb', label: 'RCB', top: '75%', left: '75%' },
-        { id: 'cb', label: 'CB', top: '80%', left: '50%' },
-        { id: 'lcb', label: 'LCB', top: '75%', left: '25%' },
-        { id: 'rm', label: 'RM', top: '50%', left: '85%' },
-        { id: 'rcm', label: 'RCM', top: '55%', left: '65%' },
-        { id: 'lcm', label: 'LCM', top: '55%', left: '35%' },
-        { id: 'lm', label: 'LM', top: '50%', left: '15%' },
-        { id: 'rf', label: 'RF', top: '35%', left: '65%' },
-        { id: 'lf', label: 'LF', top: '35%', left: '35%' },
-        { id: 'st', label: 'ST', top: '20%', left: '50%' },
-    ],
-    '4-1-4-1': [
-        { id: 'gk', label: 'GK', top: '90%', left: '50%' },
-        { id: 'rb', label: 'RB', top: '70%', left: '88%' },
-        { id: 'rcb', label: 'RCB', top: '75%', left: '65%' },
-        { id: 'lcb', label: 'LCB', top: '75%', left: '35%' },
-        { id: 'lb', label: 'LB', top: '70%', left: '12%' },
-        { id: 'cdm', label: 'CDM', top: '60%', left: '50%' },
-        { id: 'rm', label: 'RM', top: '45%', left: '80%' },
-        { id: 'rcm', label: 'RCM', top: '45%', left: '60%' },
-        { id: 'lcm', label: 'LCM', top: '45%', left: '40%' },
-        { id: 'lm', label: 'LM', top: '45%', left: '20%' },
-        { id: 'st', label: 'ST', top: '20%', left: '50%' },
-    ],
 };
 
 const isPlayerForeign = (player) => {
