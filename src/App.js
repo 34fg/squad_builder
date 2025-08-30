@@ -293,6 +293,11 @@ function getFlagEmoji(countryName) {
 function PitchAndStatsPanel({ players, onDropPlayer, formationPositions }) {
   // Use all registered players for stats
   const squadPlayers = players;
+  // For pitch rendering, still need playersOnPitch
+  const playersOnPitch = formationPositions.map(pos => ({
+    ...pos,
+    player: players.find(p => p.location === pos.id)
+  }));
   // Average age
   const avgAge = squadPlayers.length ? (squadPlayers.reduce((sum, p) => sum + (p.age || 0), 0) / squadPlayers.length).toFixed(1) : '-';
   // Country stats
