@@ -1,11 +1,14 @@
 import { TRAINING_STATUS, POSITIONS } from '../constants.js';
 
 export const besiktasPlayers = [
-  // Beşiktaş (UEL) 2025/26
+
+  // Goalkeepers
   { id: 'bjk-ersin', name: 'Ersin Destanoğlu', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 24, hasBlueCard: false },
   { id: 'bjk-mert-gunok', name: 'Mert Günok', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.GK, nationality: 'Turkish', age: 36, hasBlueCard: false },
   { id: 'bjk-emre-bilgin', name: 'Emre Bilgin', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 21, hasBlueCard: false },
   { id: 'bjk-emir-yasar', name: 'Emir Yaşar', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 19, hasBlueCard: false },
+
+  // Defenders
   { id: 'bjk-tiago-djalo', name: 'Tiago Djaló', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CB, nationality: 'Portuguese', age: 25, hasBlueCard: false },
   { id: 'bjk-felix-uduokhai', name: 'Felix Uduokhai', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CB, nationality: 'German', age: 27, hasBlueCard: false },
   { id: 'bjk-emirhan-topcu', name: 'Emirhan Topçu', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CB, nationality: 'Turkish', age: 24, hasBlueCard: false },
@@ -18,6 +21,8 @@ export const besiktasPlayers = [
   { id: 'bjk-taylan-bulut', name: 'Taylan Bulut', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LB, nationality: 'Turkish', age: 19, hasBlueCard: false },
   { id: 'bjk-jonas-svensson', name: 'Jonas Svensson', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RB, nationality: 'Norwegian', age: 32, hasBlueCard: false },
   { id: 'bjk-arda-berk-ozuarap', name: 'Arda Berk Özürap', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.RB, nationality: 'Turkish', age: 20, hasBlueCard: false },
+
+  // Midfielders
   { id: 'bjk-wilfred-ndidi', name: 'Wilfred Ndidi', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.DM, nationality: 'Nigerian', age: 28, hasBlueCard: false },
   { id: 'bjk-moatasem-al-musrati', name: 'Moatasem Al-Musrati', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.DM, nationality: 'Libyan', age: 29, hasBlueCard: false },
   { id: 'bjk-demir-ege-tiknaz', name: 'Demir Ege Tıknaz', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 21, hasBlueCard: false },
@@ -31,6 +36,8 @@ export const besiktasPlayers = [
   { id: 'bjk-keny-arroyo', name: 'Keny Arroyo', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LW, nationality: 'Ecuadorian', age: 19, hasBlueCard: false },
   { id: 'bjk-milot-rashica', name: 'Milot Rashica', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RW, nationality: 'Kosovan', age: 29, hasBlueCard: false },
   { id: 'bjk-rafa-silva', name: 'Rafa Silva', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RW, nationality: 'Portuguese', age: 32, hasBlueCard: false },
+
+  // Strikers
   { id: 'bjk-tammy-abraham', name: 'Tammy Abraham', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CF, nationality: 'English', age: 27, hasBlueCard: false },
   { id: 'bjk-el-bilal-toure', name: 'El Bilal Touré', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CF, nationality: 'Malian', age: 23, hasBlueCard: false },
   { id: 'bjk-mustafa-hekimoglu', name: 'Mustafa Hekimoğlu', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CF, nationality: 'Turkish', age: 18, hasBlueCard: false },
