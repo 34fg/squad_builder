@@ -46,8 +46,8 @@ const UEFA_RULES = {
 
 const SUPER_LIG_RULES = {
   MAX_SQUAD_SIZE: 26,
-  MAX_FOREIGNERS_TOTAL: 14, // 12 + 2 U21
-  MAX_FOREIGNERS_OVER_21: 12,
+  MAX_FOREIGNERS_TOTAL: 14, // 12 + 2 U23
+  MAX_FOREIGNERS_OVER_23: 12,
 };
 
 const isPlayerForeign = (player) => {
@@ -280,11 +280,11 @@ function SuperLigValidationStatus({ eligiblePlayers }) {
     const squadSize = eligiblePlayers.length;
     const foreignPlayers = eligiblePlayers.filter(isPlayerForeign);
     const foreignPlayerCount = foreignPlayers.length;
-    const foreignersOver21Count = foreignPlayers.filter(p => p.age > 21).length;
+    const foreignersOver23Count = foreignPlayers.filter(p => p.age > 23).length;
 
     const checks = {
         squadSize: squadSize <= SUPER_LIG_RULES.MAX_SQUAD_SIZE,
-        foreignersOver21: foreignersOver21Count <= SUPER_LIG_RULES.MAX_FOREIGNERS_OVER_21,
+        foreignersOver23: foreignersOver23Count <= SUPER_LIG_RULES.MAX_FOREIGNERS_OVER_23,
         totalForeigners: foreignPlayerCount <= SUPER_LIG_RULES.MAX_FOREIGNERS_TOTAL,
     };
 
@@ -300,7 +300,7 @@ function SuperLigValidationStatus({ eligiblePlayers }) {
       <div style={{ maxWidth: 600, margin: '20px auto', color: '#cbd5e1', padding: '15px', border: '1px solid #334155', borderRadius: '8px', backgroundColor: '#1e293b' }}>
         <h3 style={{color: '#fbbf24', borderBottom: '1px solid #334155', paddingBottom: '10px', marginBottom: '10px', marginTop: 0}}>Süper Lig Requirements</h3>
         {renderCheck('Total Squad Size', squadSize, `(Max ${SUPER_LIG_RULES.MAX_SQUAD_SIZE})`, checks.squadSize)}
-        {renderCheck('Foreign Players (Over 21)', foreignersOver21Count, `(Max ${SUPER_LIG_RULES.MAX_FOREIGNERS_OVER_21})`, checks.foreignersOver21)}
+        {renderCheck('Foreign Players (Over 23)', foreignersOver23Count, `(Max ${SUPER_LIG_RULES.MAX_FOREIGNERS_OVER_23})`, checks.foreignersOver23)}
         {renderCheck('Foreign Players (Total)', foreignPlayerCount, `(Max ${SUPER_LIG_RULES.MAX_FOREIGNERS_TOTAL})`, checks.totalForeigners)}
 
         <hr style={{ margin: '15px 0', borderColor: '#334155' }} />
@@ -425,14 +425,14 @@ export default function App() {
             if (isPlayerForeign(playerToMove)) {
                 const foreignPlayers = eligiblePlayers.filter(isPlayerForeign);
                 const foreignPlayerCount = foreignPlayers.length;
-                const foreignersOver21Count = foreignPlayers.filter(p => p.age > 21).length;
+                const foreignersOver23Count = foreignPlayers.filter(p => p.age > 23).length;
 
                 if (foreignPlayerCount >= SUPER_LIG_RULES.MAX_FOREIGNERS_TOTAL) {
                      setErrorMessage(`Maximum total foreign players (${SUPER_LIG_RULES.MAX_FOREIGNERS_TOTAL}) reached.`);
                      return;
                 }
-                if (playerToMove.age > 21 && foreignersOver21Count >= SUPER_LIG_RULES.MAX_FOREIGNERS_OVER_21) {
-                    setErrorMessage(`Maximum over-21 foreign players (${SUPER_LIG_RULES.MAX_FOREIGNERS_OVER_21}) reached.`);
+                if (playerToMove.age > 23 && foreignersOver23Count >= SUPER_LIG_RULES.MAX_FOREIGNERS_OVER_23) {
+                    setErrorMessage(`Maximum over-23 foreign players (${SUPER_LIG_RULES.MAX_FOREIGNERS_OVER_23}) reached.`);
                     return;
                 }
             }
