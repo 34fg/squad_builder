@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 // Screenshot functionality
 // html2canvas will be loaded via CDN in public/index.html
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 // Import data from database
 import { 
   players as dummyPlayers, 
@@ -20,7 +21,6 @@ function downloadImage(dataUrl, filename) {
   link.click();
   document.body.removeChild(link);
 }
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 // --- Constants, Data, and Configuration ---
 const ItemTypes = {
