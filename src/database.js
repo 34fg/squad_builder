@@ -15,7 +15,7 @@ import { konyasporPlayers } from './data/konyaspor.js';
 import { kocaelisporPlayers } from './data/kocaelispor.js';
 import { alanyasporPlayers } from './data/alanyaspor.js';
 import { gaziantepfkPlayers } from './data/gaziantepfk.js';
-import { samsunspor_original } from './data/samsunspor.js';
+import { samsunsporPlayers } from './data/samsunspor.js';
 import { kayserisporPlayers } from './data/kayserispor.js';
 import { genclerbirligiPlayers } from './data/genclerbirligi.js';
 import { kasimpasaPlayers } from './data/kasimpasa.js';
@@ -73,7 +73,7 @@ export const players = [
   ...kocaelisporPlayers,
   ...alanyasporPlayers,
   ...gaziantepfkPlayers,
-  ...samsunspor_original,
+  ...samsunsporPlayers,
   ...kayserisporPlayers,
   ...genclerbirligiPlayers,
   ...kasimpasaPlayers,
