@@ -714,7 +714,11 @@ export default function App() {
                   📸 Save Squad as Image
                 </ActionButton>
               </div>
-              <PitchAndStatsPanel players={startingElevenPlayers} onDropPlayer={onDropPlayer} formationPositions={pitchPositions} />
+              <PitchAndStatsPanel 
+                players={allPlayersForTeam.filter(p => p.location !== PLAYER_LOCATIONS.UNREGISTERED)}
+                onDropPlayer={onDropPlayer} 
+                formationPositions={pitchPositions} 
+              />
             </div>
            <div style={{marginTop: '20px'}}>
             <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.SUBS} title="Substitutes" titleColor="#fbbf24">
