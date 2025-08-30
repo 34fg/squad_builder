@@ -276,10 +276,9 @@ function getFlagEmoji(countryName) {
     Mongolian: 'MN',
     Hong: 'HK',
     Taiwanese: 'TW',
-    North: 'KP',
-    South: 'KR',
-    Equatoguinean: 'GQ',
-    BissauGuinean: 'GW',
+  North: 'KP',
+  Equatoguinean: 'GQ',
+  BissauGuinean: 'GW',
   };
   // Add more as needed
   let code = countryMap[mainCountry];
@@ -305,7 +304,7 @@ function PitchAndStatsPanel({ players, onDropPlayer, formationPositions }) {
   const countryCounts = {};
   pitchPlayers.forEach(p => {
     // Use first country if multiple
-    const mainCountry = (p.nationality || '').split(/[\/ ]/)[0];
+  const mainCountry = (p.nationality || '').split(/[\/ ]/)[0];
     countryCounts[mainCountry] = (countryCounts[mainCountry] || 0) + 1;
   });
   const countryList = Object.entries(countryCounts).sort((a, b) => b[1] - a[1]);
