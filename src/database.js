@@ -32,7 +32,7 @@ export const leagues = [
 
 // --- Team Data ---
 export const teams = [
-  { id: 'fenerbahce', name: 'Fenerbahçe', leagueId: 'ucl' },
+  { id: 'fenerbahce', name: 'Fenerbahçe', leagueId: 'uel' },
   { id: 'galatasaray', name: 'Galatasaray', leagueId: 'ucl' },
   { id: 'besiktas', name: 'Beşiktaş', leagueId: 'uel' },
   { id: 'samsunspor', name: 'Samsunspor', leagueId: 'uecl' },
