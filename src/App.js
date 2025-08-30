@@ -337,7 +337,19 @@ export default function App() {
     }
     const canvas = await html2canvas(squadArea, { backgroundColor: '#0f172a', useCORS: true });
     const dataUrl = canvas.toDataURL('image/png');
-    downloadImage(dataUrl, 'myteam.png');
+    
+    // Generate filename with actual team name
+    const getFileName = () => {
+      if (selectedTeam) {
+        const team = dummyTeams.find(t => t.id === selectedTeam);
+        const teamName = team?.name || 'MyTeam';
+        const cleanName = teamName.replace(/[^a-zA-Z0-9]/g, '_');
+        return `${cleanName}_myteam.png`;
+      }
+      return 'myteam.png';
+    };
+    
+    downloadImage(dataUrl, getFileName());
   };
   const [selectedLeague, setSelectedLeague] = useState('');
   const [selectedTeam, setSelectedTeam] = useState('');
