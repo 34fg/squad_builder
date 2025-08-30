@@ -244,18 +244,14 @@ function getFlagEmoji(countryName) {
     Cape: 'CV',
     Honduran: 'HN',
     Macedonian: 'MK',
-    Belarusian: 'BY',
-    Jamaican: 'JM',
     Angolan: 'AO',
     Congolese: 'CG',
     Slovak: 'SK',
     Kosovan: 'XK',
-    Finnish: 'FI',
     Icelandic: 'IS',
     Qatari: 'QA',
     Saudi: 'SA',
     Emirati: 'AE',
-    Qatari: 'QA',
     Kuwaiti: 'KW',
     Bahraini: 'BH',
     Omani: 'OM',
@@ -278,17 +274,14 @@ function getFlagEmoji(countryName) {
     Singaporean: 'SG',
     Filipino: 'PH',
     Mongolian: 'MN',
-    Chinese: 'CN',
     Hong: 'HK',
     Taiwanese: 'TW',
     North: 'KP',
-  South: 'KR',
-  Equatoguinean: 'GQ',
-  Jamaican: 'JM',
-  Cypriot: 'CY',
-  Bissau-Guinean: 'GW'
-  // Add more as needed
+    South: 'KR',
+    Equatoguinean: 'GQ',
+    BissauGuinean: 'GW',
   };
+  // Add more as needed
   let code = countryMap[mainCountry];
   if (!code && mainCountry === 'South') code = 'ZA'; // South African
   if (!code && mainCountry === 'DR') code = 'CD'; // DR Congo
