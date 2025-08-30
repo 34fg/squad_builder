@@ -163,26 +163,196 @@ function PitchPosition({ onDropPlayer, position, player }) {
     );
 }
 
-function FootballPitch({ players, onDropPlayer, formationPositions }) {
-    const playersOnPitch = formationPositions.map(pos => ({
-        ...pos,
-        player: players.find(p => p.location === pos.id)
-    }));
 
-    return (
-        <div style={{ position: 'relative', flexGrow: 1, maxWidth: '700px', margin: '0 auto', aspectRatio: '7 / 5', background: 'linear-gradient(to bottom, #05612E, #0A9A49)', border: '3px solid #fff', borderRadius: '12px' }}>
-            {/* Pitch Markings */}
-            <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '120px', height: '120px', border: '3px solid #ffffff80', borderRadius: '50%'}}></div>
-            <div style={{position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '3px', height: '100%', backgroundColor: '#ffffff80'}}></div>
-            <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '10px', height: '10px', backgroundColor: '#fff', borderRadius: '50%'}}></div>
-            <div style={{position: 'absolute', top: '50%', left: 'calc(50% - 130px - 1.5px)', transform: 'translateY(-50%)', width: '130px', height: '260px', border: '3px solid #ffffff80', borderLeft: 'none', borderRadius: '0 100px 100px 0'}}></div>
-            <div style={{position: 'absolute', top: '50%', right: 'calc(50% - 130px - 1.5px)', transform: 'translateY(-50%)', width: '130px', height: '260px', border: '3px solid #ffffff80', borderRight: 'none', borderRadius: '100px 0 0 100px'}}></div>
+// Helper for country flag emoji (works for most standard country codes)
+function getFlagEmoji(countryName) {
+  // Try to extract the first country if multiple (e.g. "Turkish/German")
+  const mainCountry = countryName.split(/[\/ ]/)[0];
+  const countryMap = {
+    Turkish: 'TR',
+    German: 'DE',
+    French: 'FR',
+    English: 'GB',
+    Italian: 'IT',
+    Spanish: 'ES',
+    Portuguese: 'PT',
+    Dutch: 'NL',
+    Belgian: 'BE',
+    Austrian: 'AT',
+    Croatian: 'HR',
+    Serbian: 'RS',
+    Polish: 'PL',
+    Russian: 'RU',
+    Greek: 'GR',
+    Swiss: 'CH',
+    Danish: 'DK',
+    Swedish: 'SE',
+    Norwegian: 'NO',
+    Finnish: 'FI',
+    Ukrainian: 'UA',
+    Bosnian: 'BA',
+    Slovakian: 'SK',
+    Slovenian: 'SI',
+    Hungarian: 'HU',
+    Czech: 'CZ',
+    Romanian: 'RO',
+    Bulgarian: 'BG',
+    Albanian: 'AL',
+    Georgian: 'GE',
+    Armenian: 'AM',
+    Azerbaijani: 'AZ',
+    Moldovan: 'MD',
+    Belarusian: 'BY',
+    Kazakh: 'KZ',
+    Uzbek: 'UZ',
+    Kyrgyz: 'KG',
+    Turkmen: 'TM',
+    Estonian: 'EE',
+    Latvian: 'LV',
+    Lithuanian: 'LT',
+    American: 'US',
+    Canadian: 'CA',
+    Brazilian: 'BR',
+    Argentinian: 'AR',
+    Paraguayan: 'PY',
+    Uruguayan: 'UY',
+    Chilean: 'CL',
+    Colombian: 'CO',
+    Peruvian: 'PE',
+    Mexican: 'MX',
+    Costa: 'CR',
+    Jamaican: 'JM',
+    Nigerian: 'NG',
+    Ghanaian: 'GH',
+    Ivorian: 'CI',
+    Senegalese: 'SN',
+    Algerian: 'DZ',
+    Moroccan: 'MA',
+    Tunisian: 'TN',
+    Egyptian: 'EG',
+    South: 'ZA',
+    Japanese: 'JP',
+    SouthKorean: 'KR',
+    Chinese: 'CN',
+    Australian: 'AU',
+    NewZealander: 'NZ',
+    Cypriot: 'CY',
+    Gabonese: 'GA',
+    Surinamese: 'SR',
+    Malian: 'ML',
+    DR: 'CD',
+    Cape: 'CV',
+    Honduran: 'HN',
+    Macedonian: 'MK',
+    Belarusian: 'BY',
+    Jamaican: 'JM',
+    Angolan: 'AO',
+    Congolese: 'CG',
+    Slovak: 'SK',
+    Kosovan: 'XK',
+    Finnish: 'FI',
+    Icelandic: 'IS',
+    Qatari: 'QA',
+    Saudi: 'SA',
+    Emirati: 'AE',
+    Qatari: 'QA',
+    Kuwaiti: 'KW',
+    Bahraini: 'BH',
+    Omani: 'OM',
+    Palestinian: 'PS',
+    Israeli: 'IL',
+    Syrian: 'SY',
+    Lebanese: 'LB',
+    Jordanian: 'JO',
+    Iraqi: 'IQ',
+    Iranian: 'IR',
+    Afghan: 'AF',
+    Pakistani: 'PK',
+    Indian: 'IN',
+    Bangladeshi: 'BD',
+    Sri: 'LK',
+    Thai: 'TH',
+    Vietnamese: 'VN',
+    Indonesian: 'ID',
+    Malaysian: 'MY',
+    Singaporean: 'SG',
+    Filipino: 'PH',
+    Mongolian: 'MN',
+    Chinese: 'CN',
+    Hong: 'HK',
+    Taiwanese: 'TW',
+    North: 'KP',
+  South: 'KR',
+  Equatoguinean: 'GQ',
+  Jamaican: 'JM',
+  Cypriot: 'CY',
+  Bissau-Guinean: 'GW'
+  // Add more as needed
+  };
+  let code = countryMap[mainCountry];
+  if (!code && mainCountry === 'South') code = 'ZA'; // South African
+  if (!code && mainCountry === 'DR') code = 'CD'; // DR Congo
+  if (!code && mainCountry === 'Cape') code = 'CV'; // Cape Verdean
+  if (!code) return mainCountry; // fallback to name
+  // Convert country code to flag emoji
+  return String.fromCodePoint(...[...code.toUpperCase()].map(c => 0x1f1e6 + c.charCodeAt(0) - 65));
+}
 
-            {playersOnPitch.map(pos => (
-                <PitchPosition key={pos.id} onDropPlayer={onDropPlayer} position={pos} player={pos.player} />
-            ))}
+function PitchAndStatsPanel({ players, onDropPlayer, formationPositions }) {
+  // Pitch positions and players on pitch
+  const playersOnPitch = formationPositions.map(pos => ({
+    ...pos,
+    player: players.find(p => p.location === pos.id)
+  }));
+  // Only count players actually on the pitch
+  const pitchPlayers = playersOnPitch.map(p => p.player).filter(Boolean);
+  // Average age
+  const avgAge = pitchPlayers.length ? (pitchPlayers.reduce((sum, p) => sum + (p.age || 0), 0) / pitchPlayers.length).toFixed(1) : '-';
+  // Country stats
+  const countryCounts = {};
+  pitchPlayers.forEach(p => {
+    // Use first country if multiple
+    const mainCountry = (p.nationality || '').split(/[\/ ]/)[0];
+    countryCounts[mainCountry] = (countryCounts[mainCountry] || 0) + 1;
+  });
+  const countryList = Object.entries(countryCounts).sort((a, b) => b[1] - a[1]);
+  const numCountries = countryList.length;
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 32, width: '100%' }}>
+      {/* Pitch */}
+      <div style={{ position: 'relative', flexGrow: 1, maxWidth: '700px', margin: '0 auto', aspectRatio: '7 / 5', background: 'linear-gradient(to bottom, #05612E, #0A9A49)', border: '3px solid #fff', borderRadius: '12px' }}>
+        {/* Pitch Markings */}
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '120px', height: '120px', border: '3px solid #ffffff80', borderRadius: '50%'}}></div>
+        <div style={{position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '3px', height: '100%', backgroundColor: '#ffffff80'}}></div>
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '10px', height: '10px', backgroundColor: '#fff', borderRadius: '50%'}}></div>
+        <div style={{position: 'absolute', top: '50%', left: 'calc(50% - 130px - 1.5px)', transform: 'translateY(-50%)', width: '130px', height: '260px', border: '3px solid #ffffff80', borderLeft: 'none', borderRadius: '0 100px 100px 0'}}></div>
+        <div style={{position: 'absolute', top: '50%', right: 'calc(50% - 130px - 1.5px)', transform: 'translateY(-50%)', width: '130px', height: '260px', border: '3px solid #ffffff80', borderRight: 'none', borderRadius: '100px 0 0 100px'}}></div>
+        {playersOnPitch.map(pos => (
+          <PitchPosition key={pos.id} onDropPlayer={onDropPlayer} position={pos} player={pos.player} />
+        ))}
+      </div>
+      {/* Stats Panel */}
+      <div style={{ minWidth: 220, maxWidth: 260, background: '#1e293b', borderRadius: 12, padding: 18, color: '#e2e8f0', alignSelf: 'flex-start', marginTop: 8, boxShadow: '0 2px 8px #0002' }}>
+        <h3 style={{ color: '#fbbf24', margin: '0 0 12px 0', fontSize: '1.1em', textAlign: 'center' }}>Squad Stats</h3>
+        <div style={{ marginBottom: 10 }}>
+          <b>Avg. Age:</b> {avgAge}
         </div>
-    );
+        <div style={{ marginBottom: 10 }}>
+          <b>Countries:</b> {numCountries}
+        </div>
+        <div>
+          {countryList.map(([country, count]) => (
+            <div key={country} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+              <span style={{ fontSize: '1.3em' }}>{getFlagEmoji(country)}</span>
+              <span style={{ fontWeight: 500 }}>{country}</span>
+              <span style={{ color: '#fbbf24', marginLeft: 'auto', fontWeight: 600 }}>{count}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function ActionButton({ onClick, title, children, color = '#fbbf24' }) {
@@ -529,31 +699,31 @@ export default function App() {
         </DropArea>
         <div style={{marginTop: '20px', padding: '20px', border: '2px solid #334155', borderRadius: '12px', backgroundColor: '#1e293b' }}>
            <h2 style={{ color: '#fbbf24', textAlign: 'center', fontSize: '1.5em', marginTop: 0, borderBottom: '1px solid #334155', paddingBottom: '15px' }}>Eligible Squad (List A)</h2>
-           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '20px', marginTop: '20px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '180px' }}>
-              <ActionButton 
-                onClick={handleClearPitch}
-                title="Move all players from the pitch to the bench"
-              >
-               Clear Pitch
-              </ActionButton>
-              <ActionButton 
-                onClick={handleResetSquad}
-                title="Move all registered players back to the unregistered list"
-                color="#f87171"
-              >
-                Reset Squad
-              </ActionButton>
-              <ActionButton
-                onClick={handleScreenshot}
-                title="Take a screenshot of your squad and save as myteam.png"
-                color="#38bdf8"
-              >
-                📸 Save Squad as Image
-              </ActionButton>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '20px', marginTop: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '180px' }}>
+                <ActionButton 
+                  onClick={handleClearPitch}
+                  title="Move all players from the pitch to the bench"
+                >
+                  Clear Pitch
+                </ActionButton>
+                <ActionButton 
+                  onClick={handleResetSquad}
+                  title="Move all registered players back to the unregistered list"
+                  color="#f87171"
+                >
+                  Reset Squad
+                </ActionButton>
+                <ActionButton
+                  onClick={handleScreenshot}
+                  title="Take a screenshot of your squad and save as myteam.png"
+                  color="#38bdf8"
+                >
+                  📸 Save Squad as Image
+                </ActionButton>
+              </div>
+              <PitchAndStatsPanel players={startingElevenPlayers} onDropPlayer={onDropPlayer} formationPositions={pitchPositions} />
             </div>
-            <FootballPitch players={startingElevenPlayers} onDropPlayer={onDropPlayer} formationPositions={pitchPositions} />
-          </div>
            <div style={{marginTop: '20px'}}>
             <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.SUBS} title="Substitutes" titleColor="#fbbf24">
               {substitutePlayers.map(p => <Player key={p.id} player={p} />)}
