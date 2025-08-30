@@ -73,6 +73,12 @@ function Player({ player }) {
   
   const playerColor = isUefaHomegrown || isTurkish ? '#22c55e' : '#3b82f6';
 
+  // Show every player's position (e.g., (CB), (LB), etc.)
+  const getPositionLabel = (pos) => {
+    // Try to get the key from POSITIONS object
+    const entry = Object.entries(POSITIONS).find(([k, v]) => v === pos);
+    return entry ? ` (${entry[0]})` : '';
+  };
   return (
     <div
       ref={drag}
@@ -93,7 +99,7 @@ function Player({ player }) {
       title={`${player.name} (${player.nationality}, Age: ${player.age})`}
     >
       {player.name}
-      {player.position === POSITIONS.GK && ' (GK)'}
+      {getPositionLabel(player.position)}
     </div>
   );
 }
