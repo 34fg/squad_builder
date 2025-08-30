@@ -38,10 +38,14 @@ export const teams = [
   // European Competition Teams
   { id: 'fenerbahce', name: 'Fenerbahçe', leagueId: 'uel' },
   { id: 'galatasaray', name: 'Galatasaray', leagueId: 'ucl' },
-  { id: 'besiktas', name: 'Beşiktaş', leagueId: 'uel' },
   { id: 'samsunspor', name: 'Samsunspor', leagueId: 'uecl' },
   
   // Turkish Super League 2025/26 Season (18 teams)
+  // Teams with European competition also appear here
+  { id: 'fenerbahce', name: 'Fenerbahçe', leagueId: 'superlig' },
+  { id: 'galatasaray', name: 'Galatasaray', leagueId: 'superlig' },
+  { id: 'besiktas', name: 'Beşiktaş', leagueId: 'superlig' },
+  { id: 'samsunspor', name: 'Samsunspor', leagueId: 'superlig' },
   { id: 'trabzonspor', name: 'Trabzonspor', leagueId: 'superlig' },
   { id: 'basaksehir', name: 'İstanbul Başakşehir FK', leagueId: 'superlig' },
   { id: 'antalyaspor', name: 'Antalyaspor', leagueId: 'superlig' },
