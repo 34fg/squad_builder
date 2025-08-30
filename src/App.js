@@ -167,7 +167,7 @@ function PitchPosition({ onDropPlayer, position, player }) {
 // Helper for country flag emoji (works for most standard country codes)
 function getFlagEmoji(countryName) {
   // Try to extract the first country if multiple (e.g. "Turkish/German")
-  const mainCountry = countryName.split(/[\/ ]/)[0];
+  const mainCountry = countryName.split(/[/ ]/)[0];
   const countryMap = {
     Turkish: 'TR',
     German: 'DE',
@@ -304,7 +304,7 @@ function PitchAndStatsPanel({ players, onDropPlayer, formationPositions }) {
   const countryCounts = {};
   pitchPlayers.forEach(p => {
     // Use first country if multiple
-  const mainCountry = (p.nationality || '').split(/[\/ ]/)[0];
+  const mainCountry = (p.nationality || '').split(/[/ ]/)[0];
     countryCounts[mainCountry] = (countryCounts[mainCountry] || 0) + 1;
   });
   const countryList = Object.entries(countryCounts).sort((a, b) => b[1] - a[1]);
