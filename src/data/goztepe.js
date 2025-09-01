@@ -27,7 +27,6 @@ export const goztepePlayers = [
   { id: 'gzt-junior-olaitan', name: 'Junior Olaitan', teamId: 'goztepe', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LW, nationality: 'Beninese', age: 23, hasBlueCard: false },
   // Forwards
   { id: 'gzt-juan', name: 'Juan', teamId: 'goztepe', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.ST, nationality: 'Brazilian', age: 23, hasBlueCard: false },
-  { id: 'gzt-emersonn', name: 'Emersonn', teamId: 'goztepe', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LW, nationality: 'Brazilian', age: 21, hasBlueCard: false },
   { id: 'gzt-janderson', name: 'Janderson', teamId: 'goztepe', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RW, nationality: 'Brazilian', age: 26, hasBlueCard: false },
   { id: 'gzt-ibrahim-sabra', name: 'Ibrahim Sabra', teamId: 'goztepe', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.ST, nationality: 'Jordanian', age: 19, hasBlueCard: false },
   { id: 'gzt-tibet-durakcay', name: 'Tibet Durakçay', teamId: 'goztepe', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.ST, nationality: 'Turkish', age: 19, hasBlueCard: false },

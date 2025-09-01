@@ -3,7 +3,6 @@ import { TRAINING_STATUS, POSITIONS } from '../constants.js';
 export const trabzonsporPlayers = [
 
   // Goalkeepersß
-  { id: 'ts-ugurcan-cakir', name: 'Uğurcan Çakır', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.GK, nationality: 'Turkish', age: 29, hasBlueCard: false },
   { id: 'ts-onuralp-cevikkan', name: 'Onuralp Çevikkan', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 19, hasBlueCard: false },
   { id: 'ts-ahmet-yildirim', name: 'Ahmet Yıldırım', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 18, hasBlueCard: false },
   
@@ -21,14 +20,12 @@ export const trabzonsporPlayers = [
   { id: 'ts-wagner-pina', name: 'Wagner Pina', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Cape Verdean', age: 22, hasBlueCard: false },
 
   // Midfielders
-  { id: 'ts-batista-mendy', name: 'Batista Mendy', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CDM, nationality: 'French', age: 25, hasBlueCard: false },
   { id: 'ts-okay-yokuslu', name: 'Okay Yokuşlu', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.CM, nationality: 'Turkish', age: 31, hasBlueCard: false },
   { id: 'ts-salih-malkocoglu', name: 'Salih Malkoçoğlu', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 20, hasBlueCard: false },
   { id: 'ts-ozan-tufan', name: 'Ozan Tufan', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.CM, nationality: 'Turkish', age: 30, hasBlueCard: false },
   { id: 'ts-tim-jabol-folcarelli', name: 'Tim Jabol-Folcarelli', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'French', age: 25, hasBlueCard: false },
   { id: 'ts-christ-inao-oulai', name: 'Christ Inao Oulaï', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Ivorian', age: 19, hasBlueCard: false },
   { id: 'ts-boran-baskan', name: 'Boran Başkan', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 19, hasBlueCard: false },
-  { id: 'ts-muhammed-cham', name: 'Muhammed Cham', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CAM, nationality: 'Austrian', age: 24, hasBlueCard: false },
   { id: 'ts-cihan-canak', name: 'Cihan Çanak', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.LW, nationality: 'Turkish', age: 20, hasBlueCard: false },
   { id: 'ts-kazeem-olaigbe', name: 'Kazeem Olaigbe', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LW, nationality: 'Belgian', age: 22, hasBlueCard: false },
   { id: 'ts-anthony-nwakaeme', name: 'Anthony Nwakaeme', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LW, nationality: 'Nigerian', age: 36, hasBlueCard: false },

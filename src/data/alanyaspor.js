@@ -38,10 +38,8 @@ export const alanyasporPlayers = [
 
   // Wingers
   { id: 'ala-ibrahim-kaya', name: 'İbrahim Kaya', teamId: 'alanyaspor', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.LW, nationality: 'Turkish', age: 24, hasBlueCard: false },
-  { id: 'ala-rony-lopes', name: 'Rony Lopes', teamId: 'alanyaspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RW, nationality: 'Portuguese', age: 29, hasBlueCard: false },
 
   // Forwards
-  { id: 'ala-andraz-sporar', name: 'Andraz Sporar', teamId: 'alanyaspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CF, nationality: 'Slovenian', age: 31, hasBlueCard: false },
   { id: 'ala-guven-yalcin', name: 'Güven Yalçın', teamId: 'alanyaspor', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.CF, nationality: 'Turkish', age: 26, hasBlueCard: false },
   { id: 'ala-hwang-ui-jo', name: 'Hwang Ui-jo', teamId: 'alanyaspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CF, nationality: 'South Korean', age: 33, hasBlueCard: false },
   { id: 'ala-uchenna-ogundu', name: 'Uchenna Ogundu', teamId: 'alanyaspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CF, nationality: 'Nigerian', age: 19, hasBlueCard: false },

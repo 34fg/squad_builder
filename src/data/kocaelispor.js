@@ -29,8 +29,8 @@ export const kocaelisporPlayers = [
   { id: 'kcs-ryan-mendes', name: 'Ryan Mendes', teamId: 'kocaelispor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LW, nationality: 'Cape Verdean/French', age: 35, hasBlueCard: false },
   { id: 'kcs-furkan-gedik', name: 'Furkan Gedik', teamId: 'kocaelispor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LW, nationality: 'Turkish', age: 23, hasBlueCard: false },
   { id: 'kcs-can-keles', name: 'Can Keleş', teamId: 'kocaelispor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RW, nationality: 'Austrian/Turkish', age: 23, hasBlueCard: false },
-  { id: 'kcs-ogulcan-caglayan', name: 'Oğulcan Çağlayan', teamId: 'kocaelispor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RW, nationality: 'Turkish', age: 29, hasBlueCard: false },
   { id: 'kcs-dan-agyei', name: 'Dan Agyei', teamId: 'kocaelispor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RW, nationality: 'English/Ghanaian', age: 28, hasBlueCard: false },
+  { id: 'kcs-darko-churlinov', name: 'Darko Churlinov', teamId: 'kocaelispor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LW, nationality: 'North Macedonian', age: 25, hasBlueCard: false },
   // Forwards
   { id: 'kcs-bruno-petkovic', name: 'Bruno Petkovic', teamId: 'kocaelispor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.ST, nationality: 'Croatian', age: 30, hasBlueCard: false },
   { id: 'kcs-ahmet-sagat', name: 'Ahmet Sağat', teamId: 'kocaelispor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.ST, nationality: 'Turkish/German', age: 29, hasBlueCard: false },

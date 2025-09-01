@@ -17,6 +17,7 @@ export const gaziantepfkPlayers = [
   { id: 'gfk-nazim-sangare', name: 'Nazım Sangaré', teamId: 'gaziantepfk', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.RB, nationality: 'Turkish', age: 31, hasBlueCard: false },
   // Midfielders
   { id: 'gfk-melih-kabasakal', name: 'Melih Kabasakal', teamId: 'gaziantepfk', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CDM, nationality: 'Turkish', age: 29, hasBlueCard: false },
+{ id: 'gfk-drissa-camara', name: 'Drissa Camara', teamId: 'gaziantepfk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Ivorian', age: 23, hasBlueCard: false },
   { id: 'gfk-ogun-ozciçek', name: 'Ogün Özçiçek', teamId: 'gaziantepfk', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 26, hasBlueCard: false },
   { id: 'gfk-badou-ndiaye', name: 'Badou Ndiaye', teamId: 'gaziantepfk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Senegalese', age: 34, hasBlueCard: false },
   { id: 'gfk-juninho-bacuna', name: 'Juninho Bacuna', teamId: 'gaziantepfk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Curacaoan', age: 28, hasBlueCard: false },
@@ -36,4 +37,5 @@ export const gaziantepfkPlayers = [
   // Forwards
   { id: 'gfk-emmanuel-boateng', name: 'Emmanuel Boateng', teamId: 'gaziantepfk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.ST, nationality: 'Ghanaian', age: 29, hasBlueCard: false },
   { id: 'gfk-kuzey-ege-bulgulu', name: 'Kuzey Ege Bulgulu', teamId: 'gaziantepfk', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.ST, nationality: 'Turkish', age: 16, hasBlueCard: false },
+{ id: 'gfk-mohamed-bayo', name: 'Mohamed Bayo', teamId: 'gaziantepfk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.ST, nationality: 'Guinean', age: 27, hasBlueCard: false },
 ];

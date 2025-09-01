@@ -17,6 +17,8 @@ export const fatihkaragumrukPlayers = [
   { id: 'fat-jure-balkovec', name: 'Jure Balkovec', teamId: 'fatihkaragumruk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LB, nationality: 'Slovenian', age: 30, hasBlueCard: false },
   { id: 'fat-cagtay-kurukalip', name: 'Çağtay Kurukalıp', teamId: 'fatihkaragumruk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LB, nationality: 'Turkish', age: 23, hasBlueCard: false },
   { id: 'fat-atakan-cankaya', name: 'Atakan Çankaya', teamId: 'fatihkaragumruk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RB, nationality: 'Turkish', age: 27, hasBlueCard: false },
+  { id: 'fat-ricardo-esgaio', name: 'Ricardo Esgaio', teamId: 'fatihkaragumruk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RB, nationality: 'Portuguese', age: 32, hasBlueCard: false },
+
   // Midfielders
   { id: 'fat-maruis-tresor-doh', name: 'Maruis Tresor Doh', teamId: 'fatihkaragumruk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CDM, nationality: 'Ivorian', age: 21, hasBlueCard: false },
   { id: 'fat-berkay-ozcan', name: 'Berkay Özcan', teamId: 'fatihkaragumruk', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Turkish/German', age: 27, hasBlueCard: false },

@@ -3,7 +3,6 @@ import { TRAINING_STATUS, POSITIONS } from '../constants.js';
 export const fenerbahcePlayers = [
 
   // Goalkeepers
-  { id: 'fb-livakovic', name: 'Dominik Livakovic', teamId: 'fenerbahce', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.GK, nationality: 'Croatian', age: 30, hasBlueCard: false },
   { id: 'fb-irfan-can-e', name: 'İrfan Can Eğribayat', teamId: 'fenerbahce', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.GK, nationality: 'Turkish', age: 27, hasBlueCard: false },
   { id: 'fb-tarik-cetin', name: 'Tarık Çetin', teamId: 'fenerbahce', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 28, hasBlueCard: false },
   { id: 'fb-engin-can-biterge', name: 'Engin Can Biterge', teamId: 'fenerbahce', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 18, hasBlueCard: false },
@@ -22,7 +21,6 @@ export const fenerbahcePlayers = [
 
   // Midfielders
   { id: 'fb-edson-alvarez', name: 'Edson Álvarez', teamId: 'fenerbahce', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CDM, nationality: 'Mexican', age: 27, hasBlueCard: false },
-  { id: 'fb-sofyan', name: 'Sofyan Amrabat', teamId: 'fenerbahce', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CDM, nationality: 'Moroccan', age: 29, hasBlueCard: false },
   { id: 'fb-ismail-yuksek', name: 'İsmail Yüksek', teamId: 'fenerbahce', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.CM, nationality: 'Turkish', age: 26, hasBlueCard: false },
   { id: 'fb-bartug-elmaz', name: 'Bartug Elmaz', teamId: 'fenerbahce', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.CM, nationality: 'Turkish', age: 22, hasBlueCard: false },
   { id: 'fb-fred', name: 'Fred', teamId: 'fenerbahce', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Brazilian', age: 32, hasBlueCard: false },

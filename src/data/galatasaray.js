@@ -7,11 +7,11 @@ export const galatasarayPlayers = [
   { id: 'gs-batuhan-sen', name: 'Batuhan Şen', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 26, hasBlueCard: false },
   { id: 'gs-jankat-yilmaz', name: 'Jankat Yılmaz', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 21, hasBlueCard: false },
   { id: 'gs-enes-emre-buyuk', name: 'Enes Emre Büyük', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 19, hasBlueCard: false },
+  { id: 'ts-ugurcan-cakir', name: 'Uğurcan Çakır', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.GK, nationality: 'Turkish', age: 29, hasBlueCard: false },
 
   // Defenders
   { id: 'gs-wilfried-singo', name: 'Wilfried Singo', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RB, nationality: 'Ivorian', age: 24, hasBlueCard: false },
   { id: 'gs-sanchez', name: 'Davinson Sánchez', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CB, nationality: 'Colombian', age: 29, hasBlueCard: false },
-  { id: 'gs-carlos-cuesta', name: 'Carlos Cuesta', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CB, nationality: 'Colombian', age: 26, hasBlueCard: false },
   { id: 'gs-abdulkerim', name: 'Abdülkerim Bardakcı', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.CB, nationality: 'Turkish', age: 30, hasBlueCard: false },
   { id: 'gs-kaan-ayhan', name: 'Kaan Ayhan', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RB, nationality: 'Turkish', age: 30, hasBlueCard: false },
   { id: 'gs-metehan-baltaci', name: 'Metehan Baltacı', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CB, nationality: 'Turkish', age: 22, hasBlueCard: false },
@@ -20,7 +20,6 @@ export const galatasarayPlayers = [
   { id: 'gs-eren-elmali', name: 'Eren Elmalı', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.LB, nationality: 'Turkish', age: 25, hasBlueCard: false },
   { id: 'gs-kazimcan-karatas', name: 'Kazımcan Karataş', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.LB, nationality: 'Turkish', age: 22, hasBlueCard: false },
   { id: 'gs-roland-sallai', name: 'Roland Sallai', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RW, nationality: 'Hungarian', age: 28, hasBlueCard: false },
-  { id: 'gs-elias-jelert', name: 'Elias Jelert', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RB, nationality: 'Danish', age: 22, hasBlueCard: false },
 
   // Midfielders
   { id: 'gs-torreira', name: 'Lucas Torreira', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CDM, nationality: 'Uruguayan', age: 29, hasBlueCard: false },
@@ -30,7 +29,6 @@ export const galatasarayPlayers = [
   { id: 'gs-berkan-kutlu', name: 'Berkan Kutlu', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Turkish', age: 27, hasBlueCard: false },
   { id: 'gs-eyup-aydin', name: 'Eyüp Aydın', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 21, hasBlueCard: false },
   { id: 'gs-gokdeniz-gurpuz', name: 'Gökdeniz Gürpüz', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 19, hasBlueCard: false },
-  { id: 'gs-zaniolo', name: 'Nicolò Zaniolo', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CAM, nationality: 'Italian', age: 26, hasBlueCard: false },
   { id: 'gs-sirachan-nas', name: 'Siraçhan Nas', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 23, hasBlueCard: false },
   { id: 'gs-baris-alper', name: 'Barış Alper Yılmaz', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.LW, nationality: 'Turkish', age: 25, hasBlueCard: false },
   { id: 'gs-ahmed-kutucu', name: 'Ahmed Kutucu', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.ST, nationality: 'Turkish', age: 25, hasBlueCard: false },
