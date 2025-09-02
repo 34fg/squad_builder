@@ -32,7 +32,6 @@ export const samsunsporPlayers = [
 
   // Forwards
   { id: 'sam-marius-mouandilmadji', name: 'Marius Mouandilmadji', teamId: 'samsunspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.ST, nationality: 'Chadian', age: 27, hasBlueCard: false },
-  { id: 'sam-landry-dimata', name: 'Landry Dimata', teamId: 'samsunspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.ST, nationality: 'Belgian', age: 27, hasBlueCard: false },
 ];
 
 // Use the updated Transfermarkt list (sam- prefix)

@@ -22,7 +22,6 @@ export const konyasporPlayers = [
   { id: 'ks-ismail-esat-buga', name: 'İsmail Esat Buğa', teamId: 'konyaspor', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 19, hasBlueCard: false },
   { id: 'ks-morten-bjorlo', name: 'Morten Bjørlo', teamId: 'konyaspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Norwegian', age: 29, hasBlueCard: false },
   { id: 'ks-jin-ho-jo', name: 'Jin-ho Jo', teamId: 'konyaspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'South Korean', age: 22, hasBlueCard: false },
-  { id: 'ks-emmanuel-boateng', name: 'Emmanuel Boateng', teamId: 'konyaspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Ghanaian', age: 28, hasBlueCard: false },
   { id: 'ks-enis-bardhi', name: 'Enis Bardhi', teamId: 'konyaspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CAM, nationality: 'North Macedonian', age: 30, hasBlueCard: false },
   { id: 'ks-pedrinho', name: 'Pedrinho', teamId: 'konyaspor', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LW, nationality: 'Brazilian', age: 28, hasBlueCard: false },
   { id: 'ks-melih-ibrahimoglu', name: 'Melih İbrahimoğlu', teamId: 'konyaspor', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.LW, nationality: 'Turkish', age: 25, hasBlueCard: false },
