@@ -16,6 +16,27 @@ import {
 // Import formations
 import { FORMATIONS } from './formations';
 
+import { FixturesModal } from './components/FixturesModal';
+import { DUMMY_FIXTURES, isEuropeanTeam } from './utils/fıxtures';
+
+
+{isEuropeanTeam(selectedTeam, selectedLeague) && (
+  <ActionButton
+    onClick={() => setFixturesOpen(true)}
+    title="View European fixtures"
+    color="#38bdf8"
+  >
+    📅 European Fixtures
+  </ActionButton>
+)}
+
+<FixturesModal
+  open={fixturesOpen}
+  onClose={() => setFixturesOpen(false)}
+  teamId={selectedTeam}
+  teamName={dummyTeams[selectedTeam]?.name}
+/>
+
 // Helper to trigger download
 function downloadImage(dataUrl, filename) {
   const link = document.createElement('a');
