@@ -16,9 +16,8 @@ import {
 // Import formations
 import { FORMATIONS } from './formations';
 
-import { FixturesModal } from './components/FixturesModal';
-import { DUMMY_FIXTURES, isEuropeanTeam } from './utils/fıxtures';
-
+import { FixturesModal } from './components/ FixturesModal';
+import { isEuropeanTeam } from './utils/fıxtures';
 
 {isEuropeanTeam(selectedTeam, selectedLeague) && (
   <ActionButton
@@ -622,6 +621,12 @@ export default function App() {
       )}
       </>
     )}
+    <FixturesModal
+      open={fixturesOpen}
+      onClose={() => setFixturesOpen(false)}
+      teamId={selectedTeam}
+      teamName={dummyTeams.find(t => t.id === selectedTeam)?.name || ''}
+    />
       </div>
     </DndProvider>
   );
