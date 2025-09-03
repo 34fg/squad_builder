@@ -171,7 +171,7 @@ function PitchPosition({ onDropPlayer, position, player }) {
     );
 }
 
-function PitchAndSubstitutesPanel({ players, onDropPlayer, formationPositions, substitutePlayers }) {
+function PitchAndSubstitutesPanel({ players, onDropPlayer, formationPositions, substitutePlayers, unregisteredPlayers }) {
   // For pitch rendering, still need playersOnPitch
   const playersOnPitch = formationPositions.map(pos => ({
     ...pos,
@@ -202,7 +202,7 @@ function PitchAndSubstitutesPanel({ players, onDropPlayer, formationPositions, s
         ))}
       </div>
       
-      {/* Substitutes Panel (moved from bottom) */}
+      {/* Substitutes Panel */}
       <DropArea 
         onDropPlayer={onDropPlayer} 
         locationId={PLAYER_LOCATIONS.SUBS} 
@@ -223,6 +223,29 @@ function PitchAndSubstitutesPanel({ players, onDropPlayer, formationPositions, s
         }}
       >
         {substitutePlayers.map(p => <Player key={p.id} player={p} />)}
+      </DropArea>
+
+      {/* Unregistered Players Panel */}
+      <DropArea 
+        onDropPlayer={onDropPlayer} 
+        locationId={PLAYER_LOCATIONS.UNREGISTERED} 
+        title="Unregistered Players" 
+        titleColor="#94a3b8"
+        customStyle={{ 
+          minWidth: 200, 
+          maxWidth: 240, 
+          background: '#1e293b', 
+          border: '2px solid #334155',
+          borderRadius: 12, 
+          padding: 16, 
+          color: '#e2e8f0', 
+          height: '400px',
+          overflowY: 'auto',
+          boxShadow: '0 2px 8px #0002',
+          flex: '0 0 auto'
+        }}
+      >
+        {unregisteredPlayers.map(p => <Player key={p.id} player={p} />)}
       </DropArea>
     </div>
   );
@@ -609,11 +632,11 @@ export default function App() {
         {selectedTeam && (
           <>
             <div id="squad-main-area">
-              {/* Unregistered players with reduced height */}
+              {/* All players with reduced height */}
               <DropArea 
                 onDropPlayer={onDropPlayer} 
                 locationId={PLAYER_LOCATIONS.UNREGISTERED} 
-                title="Unregistered Players" 
+                title="All Players" 
                 titleColor="#94a3b8"
                 customStyle={{
                   minHeight: '80px',
@@ -621,7 +644,7 @@ export default function App() {
                   marginBottom: '16px'
                 }}
               >
-                {unregisteredPlayers.map(p => <Player key={p.id} player={p} />)}
+                {allPlayersForTeam.map(p => <Player key={p.id} player={p} />)}
               </DropArea>
               
               {/* Main squad area with reduced padding */}
@@ -666,6 +689,7 @@ export default function App() {
                       onDropPlayer={onDropPlayer} 
                       formationPositions={pitchPositions}
                       substitutePlayers={substitutePlayers}
+                      unregisteredPlayers={unregisteredPlayers}
                     />
                   </div>
               </div>
