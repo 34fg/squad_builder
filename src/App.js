@@ -171,14 +171,12 @@ function PitchPosition({ onDropPlayer, position, player }) {
     );
 }
 
-function PitchAndStatsPanel({ players, onDropPlayer, formationPositions }) {
+function PitchAndSubstitutesPanel({ players, onDropPlayer, formationPositions, substitutePlayers }) {
   // For pitch rendering, still need playersOnPitch
   const playersOnPitch = formationPositions.map(pos => ({
     ...pos,
     player: players.find(p => p.location === pos.id)
   }));
-  // Use squadStats util for stats
-  const { avgAge, countryList, numCountries } = getSquadStats(players);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', gap: 20, width: '100%', minHeight: '400px' }}>
@@ -203,33 +201,75 @@ function PitchAndStatsPanel({ players, onDropPlayer, formationPositions }) {
           <PitchPosition key={pos.id} onDropPlayer={onDropPlayer} position={pos} player={pos.player} />
         ))}
       </div>
-      {/* Stats Panel */}
-      <div style={{ 
-        minWidth: 200, 
-        maxWidth: 240, 
-        background: '#1e293b', 
-        borderRadius: 12, 
-        padding: 16, 
-        color: '#e2e8f0', 
-        height: 'fit-content',
-        boxShadow: '0 2px 8px #0002' 
-      }}>
-        <h3 style={{ color: '#fbbf24', margin: '0 0 12px 0', fontSize: '1em', textAlign: 'center' }}>Squad Stats</h3>
-        <div style={{ marginBottom: 8, fontSize: '0.9em' }}>
-          <b>Avg. Age:</b> {avgAge}
+      
+      {/* Substitutes Panel (moved from bottom) */}
+      <DropArea 
+        onDropPlayer={onDropPlayer} 
+        locationId={PLAYER_LOCATIONS.SUBS} 
+        title="Substitutes" 
+        titleColor="#fbbf24"
+        customStyle={{ 
+          minWidth: 200, 
+          maxWidth: 240, 
+          background: '#1e293b', 
+          border: '2px solid #334155',
+          borderRadius: 12, 
+          padding: 16, 
+          color: '#e2e8f0', 
+          height: '400px',
+          overflowY: 'auto',
+          boxShadow: '0 2px 8px #0002',
+          flex: '0 0 auto'
+        }}
+      >
+        {substitutePlayers.map(p => <Player key={p.id} player={p} />)}
+      </DropArea>
+    </div>
+  );
+}
+
+// Add a new SquadStatsPanel component:
+function SquadStatsPanel({ players }) {
+  const { avgAge, countryList, numCountries } = getSquadStats(players);
+
+  return (
+    <div style={{ 
+      background: '#1e293b', 
+      borderRadius: 12, 
+      padding: 16, 
+      color: '#e2e8f0', 
+      boxShadow: '0 2px 8px #0002',
+      margin: '16px auto',
+      maxWidth: '600px'
+    }}>
+      <h3 style={{ color: '#fbbf24', margin: '0 0 12px 0', fontSize: '1.1em', textAlign: 'center' }}>Squad Statistics</h3>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#fbbf24' }}>{avgAge}</div>
+          <div style={{ fontSize: '0.9em', color: '#94a3b8' }}>Avg. Age</div>
         </div>
-        <div style={{ marginBottom: 8, fontSize: '0.9em' }}>
-          <b>Countries:</b> {numCountries}
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#fbbf24' }}>{numCountries}</div>
+          <div style={{ fontSize: '0.9em', color: '#94a3b8' }}>Countries</div>
         </div>
-        <div>
-          {countryList.map(([country, count]) => (
-            <div key={country} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3, fontSize: '0.85em' }}>
-              <span style={{ fontSize: '1.1em' }}>{getFlagEmoji(country)}</span>
-              <span style={{ fontWeight: 500 }}>{country}</span>
-              <span style={{ color: '#fbbf24', marginLeft: 'auto', fontWeight: 600 }}>{count}</span>
-            </div>
-          ))}
-        </div>
+      </div>
+      
+      <div style={{ marginTop: '16px', display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
+        {countryList.map(([country, count]) => (
+          <div key={country} style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 6, 
+            padding: '4px 8px',
+            backgroundColor: '#0f172a',
+            borderRadius: '6px',
+            fontSize: '0.85em'
+          }}>
+            <span style={{ fontSize: '1.1em' }}>{getFlagEmoji(country)}</span>
+            <span style={{ fontWeight: 500 }}>{country}</span>
+            <span style={{ color: '#fbbf24', fontWeight: 600 }}>{count}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -621,27 +661,19 @@ export default function App() {
                         </ActionButton>
                       )}
                     </div>
-                    <PitchAndStatsPanel 
+                    <PitchAndSubstitutesPanel 
                       players={allPlayersForTeam.filter(p => p.location !== PLAYER_LOCATIONS.UNREGISTERED)}
                       onDropPlayer={onDropPlayer} 
-                      formationPositions={pitchPositions} 
+                      formationPositions={pitchPositions}
+                      substitutePlayers={substitutePlayers}
                     />
                   </div>
-                 
-                 {/* Substitutes area with reduced height */}
-                 <DropArea 
-                   onDropPlayer={onDropPlayer} 
-                   locationId={PLAYER_LOCATIONS.SUBS} 
-                   title="Substitutes" 
-                   titleColor="#fbbf24"
-                   customStyle={{
-                     minHeight: '80px',
-                     maxHeight: '120px'
-                   }}
-                 >
-                   {substitutePlayers.map(p => <Player key={p.id} player={p} />)}
-                 </DropArea>
               </div>
+              
+              {/* Squad Stats moved to bottom */}
+              <SquadStatsPanel 
+                players={allPlayersForTeam.filter(p => p.location !== PLAYER_LOCATIONS.UNREGISTERED)}
+              />
             </div>
             {errorMessage && <p style={{ color: '#f87171', fontWeight: 'bold', textAlign: 'center', marginTop: '12px', padding: '8px', backgroundColor: '#442222', borderRadius: '6px', fontSize: '0.9em' }}>{errorMessage}</p>}
             {ruleSet === 'UEFA' ? (
