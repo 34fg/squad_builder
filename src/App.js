@@ -92,12 +92,13 @@ function Player({ player }) {
         cursor: 'move',
         backgroundColor: playerColor,
         color: 'white',
-        padding: '8px 12px',
-        margin: '4px',
-        borderRadius: 6,
+        padding: '6px 10px',
+        margin: '3px',
+        borderRadius: 4,
         fontWeight: 'bold',
         textAlign: 'center',
-        minWidth: 120,
+        minWidth: 100,
+        fontSize: '0.85em',
         userSelect: 'none',
         border: '1px solid rgba(255, 255, 255, 0.2)'
       }}
@@ -109,28 +110,30 @@ function Player({ player }) {
   );
 }
 
-function DropArea({ children, onDropPlayer, locationId, title, titleColor }) {
+function DropArea({ children, onDropPlayer, locationId, title, titleColor, customStyle = {} }) {
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.PLAYER,
     drop: (item) => onDropPlayer(item.id, locationId),
     collect: (monitor) => ({ isOver: monitor.isOver() }),
   });
 
+  const defaultStyle = {
+    backgroundColor: isOver ? '#1e293b' : '#0f172a',
+    border: '2px dashed #334155',
+    borderRadius: 10,
+    padding: 12,
+    flex: 1,
+    overflowY: 'auto',
+    transition: 'background-color 0.2s'
+  };
+
   return (
     <div
       ref={drop}
-      style={{
-        backgroundColor: isOver ? '#1e293b' : '#0f172a',
-        border: '2px dashed #334155',
-        borderRadius: 10,
-        padding: 16,
-        flex: 1,
-        overflowY: 'auto',
-        transition: 'background-color 0.2s'
-      }}
+      style={{ ...defaultStyle, ...customStyle }}
     >
-      <h2 style={{ color: titleColor, marginBottom: '10px', marginTop: 0 }}>{title}</h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', minHeight: '50px' }}>
+      <h2 style={{ color: titleColor, marginBottom: '8px', marginTop: 0, fontSize: '1.1em' }}>{title}</h2>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', minHeight: '40px' }}>
         {children}
       </div>
     </div>
@@ -152,23 +155,21 @@ function PitchPosition({ onDropPlayer, position, player }) {
           top: position.top,
           left: position.left,
           transform: 'translate(-50%, -50%)',
-          width: '130px',
-          height: '50px',
+          width: '100px',
+          height: '40px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: '8px',
+          borderRadius: '6px',
           border: `2px dashed ${isOver ? '#fbbf24' : '#ffffff40'}`,
           backgroundColor: isOver ? '#fbbf2420' : '#ffffff10',
           transition: 'border-color 0.2s, background-color 0.2s',
         }}
       >
-        {player ? <Player player={player} /> : <span style={{ color: '#ffffff80', fontWeight: 'bold' }}>{position.label}</span>}
+        {player ? <Player player={player} /> : <span style={{ color: '#ffffff80', fontWeight: 'bold', fontSize: '0.8em' }}>{position.label}</span>}
       </div>
     );
 }
-
-
 
 function PitchAndStatsPanel({ players, onDropPlayer, formationPositions }) {
   // For pitch rendering, still need playersOnPitch
@@ -180,32 +181,50 @@ function PitchAndStatsPanel({ players, onDropPlayer, formationPositions }) {
   const { avgAge, countryList, numCountries } = getSquadStats(players);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', gap: 32, width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 20, width: '100%', minHeight: '400px' }}>
       {/* Pitch */}
-      <div style={{ position: 'relative', flexGrow: 1, maxWidth: '700px', margin: '0 auto', aspectRatio: '7 / 5', background: 'linear-gradient(to bottom, #05612E, #0A9A49)', border: '3px solid #fff', borderRadius: '12px' }}>
+      <div style={{ 
+        position: 'relative', 
+        flex: '1', 
+        minWidth: '500px', 
+        maxWidth: '600px', 
+        height: '400px',
+        background: 'linear-gradient(to bottom, #05612E, #0A9A49)', 
+        border: '3px solid #fff', 
+        borderRadius: '12px' 
+      }}>
         {/* Pitch Markings */}
-        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '120px', height: '120px', border: '3px solid #ffffff80', borderRadius: '50%'}}></div>
-        <div style={{position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '3px', height: '100%', backgroundColor: '#ffffff80'}}></div>
-        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '10px', height: '10px', backgroundColor: '#fff', borderRadius: '50%'}}></div>
-        <div style={{position: 'absolute', top: '50%', left: 'calc(50% - 130px - 1.5px)', transform: 'translateY(-50%)', width: '130px', height: '260px', border: '3px solid #ffffff80', borderLeft: 'none', borderRadius: '0 100px 100px 0'}}></div>
-        <div style={{position: 'absolute', top: '50%', right: 'calc(50% - 130px - 1.5px)', transform: 'translateY(-50%)', width: '130px', height: '260px', border: '3px solid #ffffff80', borderRight: 'none', borderRadius: '100px 0 0 100px'}}></div>
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80px', height: '80px', border: '2px solid #ffffff80', borderRadius: '50%'}}></div>
+        <div style={{position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '2px', height: '100%', backgroundColor: '#ffffff80'}}></div>
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '6px', height: '6px', backgroundColor: '#fff', borderRadius: '50%'}}></div>
+        <div style={{position: 'absolute', top: '50%', left: 'calc(50% - 80px - 1px)', transform: 'translateY(-50%)', width: '80px', height: '160px', border: '2px solid #ffffff80', borderLeft: 'none', borderRadius: '0 60px 60px 0'}}></div>
+        <div style={{position: 'absolute', top: '50%', right: 'calc(50% - 80px - 1px)', transform: 'translateY(-50%)', width: '80px', height: '160px', border: '2px solid #ffffff80', borderRight: 'none', borderRadius: '60px 0 0 60px'}}></div>
         {playersOnPitch.map(pos => (
           <PitchPosition key={pos.id} onDropPlayer={onDropPlayer} position={pos} player={pos.player} />
         ))}
       </div>
       {/* Stats Panel */}
-      <div style={{ minWidth: 220, maxWidth: 260, background: '#1e293b', borderRadius: 12, padding: 18, color: '#e2e8f0', alignSelf: 'flex-start', marginTop: 8, boxShadow: '0 2px 8px #0002' }}>
-        <h3 style={{ color: '#fbbf24', margin: '0 0 12px 0', fontSize: '1.1em', textAlign: 'center' }}>Squad Stats</h3>
-        <div style={{ marginBottom: 10 }}>
+      <div style={{ 
+        minWidth: 200, 
+        maxWidth: 240, 
+        background: '#1e293b', 
+        borderRadius: 12, 
+        padding: 16, 
+        color: '#e2e8f0', 
+        height: 'fit-content',
+        boxShadow: '0 2px 8px #0002' 
+      }}>
+        <h3 style={{ color: '#fbbf24', margin: '0 0 12px 0', fontSize: '1em', textAlign: 'center' }}>Squad Stats</h3>
+        <div style={{ marginBottom: 8, fontSize: '0.9em' }}>
           <b>Avg. Age:</b> {avgAge}
         </div>
-        <div style={{ marginBottom: 10 }}>
+        <div style={{ marginBottom: 8, fontSize: '0.9em' }}>
           <b>Countries:</b> {numCountries}
         </div>
         <div>
           {countryList.map(([country, count]) => (
-            <div key={country} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-              <span style={{ fontSize: '1.3em' }}>{getFlagEmoji(country)}</span>
+            <div key={country} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3, fontSize: '0.85em' }}>
+              <span style={{ fontSize: '1.1em' }}>{getFlagEmoji(country)}</span>
               <span style={{ fontWeight: 500 }}>{country}</span>
               <span style={{ color: '#fbbf24', marginLeft: 'auto', fontWeight: 600 }}>{count}</span>
             </div>
@@ -225,7 +244,7 @@ function ActionButton({ onClick, title, children, color = '#fbbf24' }) {
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
             style={{ 
-                padding: '10px 15px', 
+                padding: '8px 12px', 
                 backgroundColor: isHover ? '#334155' : '#1e293b', 
                 color: color, 
                 border: '1px solid #334155', 
@@ -234,14 +253,14 @@ function ActionButton({ onClick, title, children, color = '#fbbf24' }) {
                 fontWeight: 'bold',
                 textAlign: 'left',
                 transition: 'background-color 0.2s',
-                width: '100%'
+                width: '100%',
+                fontSize: '0.9em'
             }}
         >
             {children}
         </button>
     );
 }
-
 
 function UefaValidationStatus({ eligiblePlayers }) {
     const clubTrainedCount = eligiblePlayers.filter(p => p.trainingStatus === TRAINING_STATUS.CLUB).length;
@@ -285,28 +304,28 @@ function UefaValidationStatus({ eligiblePlayers }) {
     }
     
     const renderCheck = (label, value, rule, isValid) => (
-        <p style={{ color: isValid ? '#a7f3d0' : '#fca5a5', margin: '4px 0' }}>
+        <p style={{ color: isValid ? '#a7f3d0' : '#fca5a5', margin: '4px 0', fontSize: '0.9em' }}>
             {label}: <b>{value}</b> {rule} {isValid ? '✓' : '✗'}
         </p>
     );
 
     return (
-        <div style={{ maxWidth: 600, margin: '20px auto', color: '#cbd5e1', padding: '15px', border: '1px solid #334155', borderRadius: '8px', backgroundColor: '#1e293b' }}>
-            <h3 style={{color: '#fbbf24', borderBottom: '1px solid #334155', paddingBottom: '10px', marginBottom: '10px', marginTop: 0}}>UEFA Requirements</h3>
+        <div style={{ maxWidth: 600, margin: '16px auto', color: '#cbd5e1', padding: '12px', border: '1px solid #334155', borderRadius: '8px', backgroundColor: '#1e293b' }}>
+            <h3 style={{color: '#fbbf24', borderBottom: '1px solid #334155', paddingBottom: '8px', marginBottom: '8px', marginTop: 0, fontSize: '1em'}}>UEFA Requirements</h3>
             {renderCheck('Non-Homegrown', nonHomegrownCount, `(Max ${UEFA_RULES.MAX_NON_HOMEGROWN})`, coreChecks.nonHomegrown)}
             {renderCheck('Goalkeepers', gkCount, `(Min ${UEFA_RULES.MIN_GOALKEEPERS})`, coreChecks.goalkeepers)}
             {renderCheck('Total Squad Size', eligiblePlayers.length, `(Max ${maxSquadSize})`, coreChecks.squadSize)}
 
-            <h3 style={{color: '#fbbf24', borderBottom: '1px solid #334155', paddingBottom: '10px', marginBottom: '10px', marginTop: '15px'}}>Squad Composition</h3>
-             <p style={{color: '#cbd5e1', margin: '4px 0'}}>Club-Trained: <b>{clubTrainedCount}</b></p>
-            <p style={{color: '#cbd5e1', margin: '4px 0'}}>Association-Trained: <b>{assocTrainedCount}</b></p>
-            <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '10px' }}>
+            <h3 style={{color: '#fbbf24', borderBottom: '1px solid #334155', paddingBottom: '8px', marginBottom: '8px', marginTop: '12px', fontSize: '1em'}}>Squad Composition</h3>
+             <p style={{color: '#cbd5e1', margin: '4px 0', fontSize: '0.9em'}}>Club-Trained: <b>{clubTrainedCount}</b></p>
+            <p style={{color: '#cbd5e1', margin: '4px 0', fontSize: '0.9em'}}>Association-Trained: <b>{assocTrainedCount}</b></p>
+            <p style={{ fontSize: '0.8em', color: '#94a3b8', marginTop: '8px' }}>
                 Your squad size is capped at <b>{maxSquadSize}</b> because you have {declarableHomegrownCount} of {UEFA_RULES.MIN_TOTAL_HOMEGROWN} required declarable homegrown players.
             </p>
             
-            <hr style={{ margin: '15px 0', borderColor: '#334155' }} />
+            <hr style={{ margin: '12px 0', borderColor: '#334155' }} />
 
-            <p style={{ color: status.color, fontWeight: 'bold', textAlign: 'center', margin: 0 }}>
+            <p style={{ color: status.color, fontWeight: 'bold', textAlign: 'center', margin: 0, fontSize: '0.9em' }}>
                 {status.message}
             </p>
         </div>
@@ -328,27 +347,26 @@ function SuperLigValidationStatus({ eligiblePlayers }) {
     const isFullyCompliant = Object.values(checks).every(Boolean);
 
     const renderCheck = (label, value, rule, isValid) => (
-        <p style={{ color: isValid ? '#a7f3d0' : '#fca5a5', margin: '4px 0' }}>
+        <p style={{ color: isValid ? '#a7f3d0' : '#fca5a5', margin: '4px 0', fontSize: '0.9em' }}>
             {label}: <b>{value}</b> {rule} {isValid ? '✓' : '✗'}
         </p>
     );
 
     return (
-      <div style={{ maxWidth: 600, margin: '20px auto', color: '#cbd5e1', padding: '15px', border: '1px solid #334155', borderRadius: '8px', backgroundColor: '#1e293b' }}>
-        <h3 style={{color: '#fbbf24', borderBottom: '1px solid #334155', paddingBottom: '10px', marginBottom: '10px', marginTop: 0}}>Süper Lig Requirements</h3>
+      <div style={{ maxWidth: 600, margin: '16px auto', color: '#cbd5e1', padding: '12px', border: '1px solid #334155', borderRadius: '8px', backgroundColor: '#1e293b' }}>
+        <h3 style={{color: '#fbbf24', borderBottom: '1px solid #334155', paddingBottom: '8px', marginBottom: '8px', marginTop: 0, fontSize: '1em'}}>Süper Lig Requirements</h3>
         {renderCheck('Total Squad Size', squadSize, `(Max ${SUPER_LIG_RULES.MAX_SQUAD_SIZE})`, checks.squadSize)}
         {renderCheck('Foreign Players (Over 23)', foreignersOver23Count, `(Max ${SUPER_LIG_RULES.MAX_FOREIGNERS_OVER_23})`, checks.foreignersOver23)}
         {renderCheck('Foreign Players (Total)', foreignPlayerCount, `(Max ${SUPER_LIG_RULES.MAX_FOREIGNERS_TOTAL})`, checks.totalForeigners)}
 
-        <hr style={{ margin: '15px 0', borderColor: '#334155' }} />
+        <hr style={{ margin: '12px 0', borderColor: '#334155' }} />
 
-        <p style={{ color: isFullyCompliant ? '#4ade80' : '#f87171', fontWeight: 'bold', textAlign: 'center', margin: 0 }}>
+        <p style={{ color: isFullyCompliant ? '#4ade80' : '#f87171', fontWeight: 'bold', textAlign: 'center', margin: 0, fontSize: '0.9em' }}>
           {isFullyCompliant ? 'Squad is ELIGIBLE for registration.' : 'Squad is INELIGIBLE for registration!'}
         </p>
       </div>
     );
 }
-
 
 export default function App() {
   const [selectedLeague, setSelectedLeague] = useState('');
@@ -521,11 +539,11 @@ export default function App() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div style={{ backgroundColor: '#0f172a', color: '#e2e8f0', minHeight: '100vh', padding: 20, fontFamily: 'sans-serif' }}>
-        <h1 style={{ color: '#e2e8f0', textAlign: 'center', letterSpacing: '1px' }}>Football Squad Builder</h1>
+      <div style={{ backgroundColor: '#0f172a', color: '#e2e8f0', minHeight: '100vh', padding: 16, fontFamily: 'sans-serif' }}>
+        <h1 style={{ color: '#e2e8f0', textAlign: 'center', letterSpacing: '1px', marginBottom: 16 }}>Football Squad Builder</h1>
 
         {/* --- Top Control Bar --- */}
-        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 12, marginBottom: 20, padding: '15px', backgroundColor: '#1e293b', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 12, marginBottom: 16, padding: '12px', backgroundColor: '#1e293b', borderRadius: '8px' }}>
           <select value={selectedLeague} onChange={(e) => {setSelectedLeague(e.target.value); setSelectedTeam('');}} style={{ padding: '8px', borderRadius: '4px', border: '1px solid #334155', backgroundColor: '#0f172a', color: '#fff' }}>
             <option value="">-- Select Competition --</option>
             {dummyLeagues.map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}
@@ -551,13 +569,28 @@ export default function App() {
         {selectedTeam && (
           <>
             <div id="squad-main-area">
-              <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.UNREGISTERED} title="Unregistered Players" titleColor="#94a3b8">
+              {/* Unregistered players with reduced height */}
+              <DropArea 
+                onDropPlayer={onDropPlayer} 
+                locationId={PLAYER_LOCATIONS.UNREGISTERED} 
+                title="Unregistered Players" 
+                titleColor="#94a3b8"
+                customStyle={{
+                  minHeight: '80px',
+                  maxHeight: '120px',
+                  marginBottom: '16px'
+                }}
+              >
                 {unregisteredPlayers.map(p => <Player key={p.id} player={p} />)}
               </DropArea>
-              <div style={{marginTop: '20px', padding: '20px', border: '2px solid #334155', borderRadius: '12px', backgroundColor: '#1e293b' }}>
-                 <h2 style={{ color: '#fbbf24', textAlign: 'center', fontSize: '1.5em', marginTop: 0, borderBottom: '1px solid #334155', paddingBottom: '15px' }}>Eligible Squad (List A)</h2>
-                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '20px', marginTop: '20px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '180px' }}>
+              
+              {/* Main squad area with reduced padding */}
+              <div style={{marginTop: '16px', padding: '16px', border: '2px solid #334155', borderRadius: '12px', backgroundColor: '#1e293b' }}>
+                 <h2 style={{ color: '#fbbf24', textAlign: 'center', fontSize: '1.3em', marginTop: 0, borderBottom: '1px solid #334155', paddingBottom: '12px', marginBottom: '16px' }}>Eligible Squad (List A)</h2>
+                  
+                  {/* Action buttons and pitch area */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '16px', marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '160px' }}>
                       <ActionButton 
                         onClick={handleClearPitch}
                         title="Move all players from the pitch to the bench"
@@ -594,14 +627,23 @@ export default function App() {
                       formationPositions={pitchPositions} 
                     />
                   </div>
-                 <div style={{marginTop: '20px'}}>
-                  <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.SUBS} title="Substitutes" titleColor="#fbbf24">
-                    {substitutePlayers.map(p => <Player key={p.id} player={p} />)}
-                  </DropArea>
-                 </div>
+                 
+                 {/* Substitutes area with reduced height */}
+                 <DropArea 
+                   onDropPlayer={onDropPlayer} 
+                   locationId={PLAYER_LOCATIONS.SUBS} 
+                   title="Substitutes" 
+                   titleColor="#fbbf24"
+                   customStyle={{
+                     minHeight: '80px',
+                     maxHeight: '120px'
+                   }}
+                 >
+                   {substitutePlayers.map(p => <Player key={p.id} player={p} />)}
+                 </DropArea>
               </div>
             </div>
-            {errorMessage && <p style={{ color: '#f87171', fontWeight: 'bold', textAlign: 'center', marginTop: '15px', padding: '10px', backgroundColor: '#442222', borderRadius: '6px' }}>{errorMessage}</p>}
+            {errorMessage && <p style={{ color: '#f87171', fontWeight: 'bold', textAlign: 'center', marginTop: '12px', padding: '8px', backgroundColor: '#442222', borderRadius: '6px', fontSize: '0.9em' }}>{errorMessage}</p>}
             {ruleSet === 'UEFA' ? (
               <UefaValidationStatus eligiblePlayers={eligiblePlayers} />
             ) : (
