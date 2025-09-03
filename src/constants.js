@@ -9,7 +9,6 @@ export const TRAINING_STATUS = {
 export const POSITIONS = {
   GK: 'Goalkeeper',
   OUTFIELD: 'Outfield',
-  // Specific position extensions for Samsunspor
   CB: 'Centre-Back',
   LB: 'Left-Back',
   RB: 'Right-Back',
@@ -19,4 +18,6 @@ export const POSITIONS = {
   LW: 'Left Winger',
   RW: 'Right Winger',
   CF: 'Centre-Forward',
+  ST: 'Striker',
+
 };
