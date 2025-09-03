@@ -35,7 +35,8 @@ const ItemTypes = {
 };
 
 const PLAYER_LOCATIONS = {
-    UNREGISTERED: 'unregistered',
+    ALL_PLAYERS: 'all_players', // New neutral location for viewing all players
+    UNREGISTERED: 'unregistered', // Players excluded from squad
     SUBS: 'substitute',
     // Starting XI positions will be e.g., 'gk', 'df_1', etc.
 }
@@ -481,11 +482,12 @@ export default function App() {
   const allPlayersForTeam = useMemo(() => {
     return dummyPlayers.filter(p => p.teamId === selectedTeam).map(p => ({
         ...p,
-        location: playerLocations[p.id] || PLAYER_LOCATIONS.UNREGISTERED
+        location: playerLocations[p.id] || PLAYER_LOCATIONS.ALL_PLAYERS
     }));
   }, [selectedTeam, playerLocations]);
 
   const pitchPositions = useMemo(() => FORMATIONS[selectedFormation], [selectedFormation]);
+  const allPlayersInPool = useMemo(() => allPlayersForTeam.filter(p => p.location === PLAYER_LOCATIONS.ALL_PLAYERS), [allPlayersForTeam]);
   const unregisteredPlayers = useMemo(() => allPlayersForTeam.filter(p => p.location === PLAYER_LOCATIONS.UNREGISTERED), [allPlayersForTeam]);
   const substitutePlayers = useMemo(() => allPlayersForTeam.filter(p => p.location === PLAYER_LOCATIONS.SUBS), [allPlayersForTeam]);
   const startingElevenPlayers = useMemo(() => allPlayersForTeam.filter(p => pitchPositions.some(pos => pos.id === p.location)), [allPlayersForTeam, pitchPositions]);
@@ -496,7 +498,7 @@ export default function App() {
   const handleResetSquad = useCallback(() => {
     const initialLocations = {};
     dummyPlayers.filter(p => p.teamId === selectedTeam).forEach(player => {
-        initialLocations[player.id] = PLAYER_LOCATIONS.UNREGISTERED;
+        initialLocations[player.id] = PLAYER_LOCATIONS.ALL_PLAYERS;
     });
     setPlayerLocations(initialLocations);
     setErrorMessage('');
@@ -530,7 +532,9 @@ export default function App() {
     const playerToMove = allPlayersForTeam.find(p => p.id === playerId);
     const fromLocation = playerToMove.location;
     
-    if (toLocation !== PLAYER_LOCATIONS.UNREGISTERED && fromLocation === PLAYER_LOCATIONS.UNREGISTERED) {
+    // Only validate when moving from non-eligible locations (ALL_PLAYERS or UNREGISTERED) to eligible locations
+    if ((toLocation !== PLAYER_LOCATIONS.ALL_PLAYERS && toLocation !== PLAYER_LOCATIONS.UNREGISTERED) && 
+        (fromLocation === PLAYER_LOCATIONS.ALL_PLAYERS || fromLocation === PLAYER_LOCATIONS.UNREGISTERED)) {
         if (ruleSet === 'UEFA') {
             const futureEligiblePlayers = [...eligiblePlayers, playerToMove];
             const futureMaxSquadSize = calculateMaxUefaSquadSize(futureEligiblePlayers);
@@ -635,7 +639,7 @@ export default function App() {
               {/* All players with reduced height */}
               <DropArea 
                 onDropPlayer={onDropPlayer} 
-                locationId={PLAYER_LOCATIONS.UNREGISTERED} 
+                locationId={PLAYER_LOCATIONS.ALL_PLAYERS} 
                 title="All Players" 
                 titleColor="#94a3b8"
                 customStyle={{
@@ -662,7 +666,7 @@ export default function App() {
                       </ActionButton>
                       <ActionButton 
                         onClick={handleResetSquad}
-                        title="Move all registered players back to the unregistered list"
+                        title="Move all players back to the All Players pool"
                         color="#f87171"
                       >
                         Reset Squad
@@ -685,7 +689,7 @@ export default function App() {
                       )}
                     </div>
                     <PitchAndSubstitutesPanel 
-                      players={allPlayersForTeam.filter(p => p.location !== PLAYER_LOCATIONS.UNREGISTERED)}
+                      players={allPlayersForTeam.filter(p => p.location !== PLAYER_LOCATIONS.ALL_PLAYERS && p.location !== PLAYER_LOCATIONS.UNREGISTERED)}
                       onDropPlayer={onDropPlayer} 
                       formationPositions={pitchPositions}
                       substitutePlayers={substitutePlayers}
@@ -696,7 +700,7 @@ export default function App() {
               
               {/* Squad Stats moved to bottom */}
               <SquadStatsPanel 
-                players={allPlayersForTeam.filter(p => p.location !== PLAYER_LOCATIONS.UNREGISTERED)}
+                players={allPlayersForTeam.filter(p => p.location !== PLAYER_LOCATIONS.ALL_PLAYERS && p.location !== PLAYER_LOCATIONS.UNREGISTERED)}
               />
             </div>
             {errorMessage && <p style={{ color: '#f87171', fontWeight: 'bold', textAlign: 'center', marginTop: '12px', padding: '8px', backgroundColor: '#442222', borderRadius: '6px', fontSize: '0.9em' }}>{errorMessage}</p>}
