@@ -17,7 +17,7 @@ import {
 import { FORMATIONS } from './formations';
 
 import { FixturesModal } from './components/FixturesModal';
-import { isEuropeanTeam } from './utils/fıxtures';
+import { isEuropeanTeam } from './utils/fixtures';
 
 {isEuropeanTeam(selectedTeam, selectedLeague) && (
   <ActionButton

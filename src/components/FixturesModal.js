@@ -1,5 +1,5 @@
 import React from 'react';
-import { DUMMY_FIXTURES } from '../utils/fıxtures';
+import { DUMMY_FIXTURES } from '../utils/fixtures';
 
 export function FixturesModal({ open, onClose, teamId, teamName }) {
   if (!open) return null;
