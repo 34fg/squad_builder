@@ -1,10 +1,10 @@
 import React from 'react';
-import { DUMMY_FIXTURES } from '../utils/fixtures';
+import { european_fixtures } from '../utils/fixtures';
 
 export function FixturesModal({ open, onClose, teamId, teamName }) {
   if (!open) return null;
 
-  const fixtures = DUMMY_FIXTURES[teamId] || [];
+  const fixtures = european_fixtures[teamId] || [];
 
   return (
     <div style={{
