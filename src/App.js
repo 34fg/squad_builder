@@ -487,6 +487,7 @@ export default function App() {
   }, [selectedTeam, playerLocations]);
 
   const pitchPositions = useMemo(() => FORMATIONS[selectedFormation], [selectedFormation]);
+  const allPlayersInPool = useMemo(() => allPlayersForTeam.filter(p => p.location === PLAYER_LOCATIONS.ALL_PLAYERS), [allPlayersForTeam]);
   const unregisteredPlayers = useMemo(() => allPlayersForTeam.filter(p => p.location === PLAYER_LOCATIONS.UNREGISTERED), [allPlayersForTeam]);
   const substitutePlayers = useMemo(() => allPlayersForTeam.filter(p => p.location === PLAYER_LOCATIONS.SUBS), [allPlayersForTeam]);
   const startingElevenPlayers = useMemo(() => allPlayersForTeam.filter(p => pitchPositions.some(pos => pos.id === p.location)), [allPlayersForTeam, pitchPositions]);
@@ -647,7 +648,7 @@ export default function App() {
                   marginBottom: '16px'
                 }}
               >
-                {allPlayersForTeam.map(p => <Player key={p.id} player={p} />)}
+                {allPlayersInPool.map(p => <Player key={p.id} player={p} />)}
               </DropArea>
               
               {/* Main squad area with reduced padding */}
