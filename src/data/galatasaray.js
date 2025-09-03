@@ -7,7 +7,7 @@ export const galatasarayPlayers = [
   { id: 'gs-batuhan-sen', name: 'Batuhan Şen', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 26, hasBlueCard: false },
   { id: 'gs-jankat-yilmaz', name: 'Jankat Yılmaz', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 21, hasBlueCard: false },
   { id: 'gs-enes-emre-buyuk', name: 'Enes Emre Büyük', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 19, hasBlueCard: false },
-  { id: 'ts-ugurcan-cakir', name: 'Uğurcan Çakır', teamId: 'trabzonspor', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.GK, nationality: 'Turkish', age: 29, hasBlueCard: false },
+  { id: 'gs-ugurcan-cakir', name: 'Uğurcan Çakır', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.GK, nationality: 'Turkish', age: 29, hasBlueCard: false },
 
   // Defenders
   { id: 'gs-wilfried-singo', name: 'Wilfried Singo', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RB, nationality: 'Ivorian', age: 24, hasBlueCard: false },
@@ -36,7 +36,7 @@ export const galatasarayPlayers = [
   { id: 'gs-leroy-sane', name: 'Leroy Sané', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.LW, nationality: 'German', age: 29, hasBlueCard: false },
   { id: 'gs-yunus', name: 'Yunus Akgün', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.RW, nationality: 'Turkish', age: 25, hasBlueCard: false },
   { id: 'gs-yusuf-demir', name: 'Yusuf Demir', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.RW, nationality: 'Austrian', age: 22, hasBlueCard: false },
-  { id: 'gs-ilkay-gundogan', name: 'İlkay Gündoğan', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'German', age: 35, hasBlueCard: false },
+  { id: 'gs-ilkay-gundogan', name: 'İlkay Gündoğan', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Turkish', age: 35, hasBlueCard: false },
 
    // Forwards
   { id: 'gs-victor-osimhen', name: 'Victor Osimhen', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.ST, nationality: 'Nigerian', age: 26, hasBlueCard: false },
