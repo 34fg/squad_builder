@@ -16,7 +16,7 @@ import {
 // Import formations
 import { FORMATIONS } from './formations';
 
-import { FixturesModal } from './components/ FixturesModal';
+import { FixturesModal } from './components/FixturesModal';
 import { isEuropeanTeam } from './utils/fıxtures';
 
 {isEuropeanTeam(selectedTeam, selectedLeague) && (
