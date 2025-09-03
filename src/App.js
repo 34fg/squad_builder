@@ -19,23 +19,6 @@ import { FORMATIONS } from './formations';
 import { FixturesModal } from './components/FixturesModal';
 import { isEuropeanTeam } from './utils/fixtures';
 
-{isEuropeanTeam(selectedTeam, selectedLeague) && (
-  <ActionButton
-    onClick={() => setFixturesOpen(true)}
-    title="View European fixtures"
-    color="#38bdf8"
-  >
-    📅 European Fixtures
-  </ActionButton>
-)}
-
-<FixturesModal
-  open={fixturesOpen}
-  onClose={() => setFixturesOpen(false)}
-  teamId={selectedTeam}
-  teamName={dummyTeams[selectedTeam]?.name}
-/>
-
 // Helper to trigger download
 function downloadImage(dataUrl, filename) {
   const link = document.createElement('a');
@@ -368,6 +351,13 @@ function SuperLigValidationStatus({ eligiblePlayers }) {
 
 
 export default function App() {
+  const [selectedLeague, setSelectedLeague] = useState('');
+  const [selectedTeam, setSelectedTeam] = useState('');
+  const [playerLocations, setPlayerLocations] = useState({});
+  const [errorMessage, setErrorMessage] = useState('');
+  const [selectedFormation, setSelectedFormation] = useState('4-4-2');
+  const [ruleSet, setRuleSet] = useState('UEFA'); 
+  const [fixturesOpen, setFixturesOpen] = useState(false);
 
   // Screenshot handler
   const handleScreenshot = async () => {
@@ -405,12 +395,6 @@ export default function App() {
     
     downloadImage(dataUrl, getFileName());
   };
-  const [selectedLeague, setSelectedLeague] = useState('');
-  const [selectedTeam, setSelectedTeam] = useState('');
-  const [playerLocations, setPlayerLocations] = useState({});
-  const [errorMessage, setErrorMessage] = useState('');
-  const [selectedFormation, setSelectedFormation] = useState('4-4-2');
-  const [ruleSet, setRuleSet] = useState('UEFA'); 
 
   const availableTeams = useMemo(() => dummyTeams.filter(t => t.leagueId === selectedLeague), [selectedLeague]);
   const allPlayersForTeam = useMemo(() => {
@@ -518,7 +502,6 @@ export default function App() {
     setPlayerLocations(newLocations);
   }, [allPlayersForTeam, eligiblePlayers, playerLocations, pitchPositions, ruleSet, calculateMaxUefaSquadSize]);
 
-
   // --- useEffect Hooks ---
   
   useEffect(() => {
@@ -538,13 +521,10 @@ export default function App() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-  <div style={{ backgroundColor: '#0f172a', color: '#e2e8f0', minHeight: '100vh', padding: 20, fontFamily: 'sans-serif' }}>
+      <div style={{ backgroundColor: '#0f172a', color: '#e2e8f0', minHeight: '100vh', padding: 20, fontFamily: 'sans-serif' }}>
         <h1 style={{ color: '#e2e8f0', textAlign: 'center', letterSpacing: '1px' }}>Football Squad Builder</h1>
 
         {/* --- Top Control Bar --- */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 10 }}>
-          {/* Screenshot button moved under Reset Squad */}
-        </div>
         <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 12, marginBottom: 20, padding: '15px', backgroundColor: '#1e293b', borderRadius: '8px' }}>
           <select value={selectedLeague} onChange={(e) => {setSelectedLeague(e.target.value); setSelectedTeam('');}} style={{ padding: '8px', borderRadius: '4px', border: '1px solid #334155', backgroundColor: '#0f172a', color: '#fff' }}>
             <option value="">-- Select Competition --</option>
@@ -566,67 +546,76 @@ export default function App() {
           </select>
         </div>
 
-
         {!selectedTeam && <p style={{ color: '#cbd5e1', textAlign: 'center', fontSize: '1.2em' }}>Please select a competition and a team to begin.</p>}
 
-    {selectedTeam && (
-      <>
-      <div id="squad-main-area">
-        <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.UNREGISTERED} title="Unregistered Players" titleColor="#94a3b8">
-          {unregisteredPlayers.map(p => <Player key={p.id} player={p} />)}
-        </DropArea>
-        <div style={{marginTop: '20px', padding: '20px', border: '2px solid #334155', borderRadius: '12px', backgroundColor: '#1e293b' }}>
-           <h2 style={{ color: '#fbbf24', textAlign: 'center', fontSize: '1.5em', marginTop: 0, borderBottom: '1px solid #334155', paddingBottom: '15px' }}>Eligible Squad (List A)</h2>
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '20px', marginTop: '20px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '180px' }}>
-                <ActionButton 
-                  onClick={handleClearPitch}
-                  title="Move all players from the pitch to the bench"
-                >
-                  Clear Pitch
-                </ActionButton>
-                <ActionButton 
-                  onClick={handleResetSquad}
-                  title="Move all registered players back to the unregistered list"
-                  color="#f87171"
-                >
-                  Reset Squad
-                </ActionButton>
-                <ActionButton
-                  onClick={handleScreenshot}
-                  title="Take a screenshot of your squad and save as myteam.png"
-                  color="#38bdf8"
-                >
-                  📸 Save Squad as Image
-                </ActionButton>
+        {selectedTeam && (
+          <>
+            <div id="squad-main-area">
+              <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.UNREGISTERED} title="Unregistered Players" titleColor="#94a3b8">
+                {unregisteredPlayers.map(p => <Player key={p.id} player={p} />)}
+              </DropArea>
+              <div style={{marginTop: '20px', padding: '20px', border: '2px solid #334155', borderRadius: '12px', backgroundColor: '#1e293b' }}>
+                 <h2 style={{ color: '#fbbf24', textAlign: 'center', fontSize: '1.5em', marginTop: 0, borderBottom: '1px solid #334155', paddingBottom: '15px' }}>Eligible Squad (List A)</h2>
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '20px', marginTop: '20px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '180px' }}>
+                      <ActionButton 
+                        onClick={handleClearPitch}
+                        title="Move all players from the pitch to the bench"
+                      >
+                        Clear Pitch
+                      </ActionButton>
+                      <ActionButton 
+                        onClick={handleResetSquad}
+                        title="Move all registered players back to the unregistered list"
+                        color="#f87171"
+                      >
+                        Reset Squad
+                      </ActionButton>
+                      <ActionButton
+                        onClick={handleScreenshot}
+                        title="Take a screenshot of your squad and save as myteam.png"
+                        color="#38bdf8"
+                      >
+                        📸 Save Squad as Image
+                      </ActionButton>
+                      {isEuropeanTeam(selectedTeam, selectedLeague) && (
+                        <ActionButton
+                          onClick={() => setFixturesOpen(true)}
+                          title="View European fixtures"
+                          color="#38bdf8"
+                        >
+                          📅 European Fixtures
+                        </ActionButton>
+                      )}
+                    </div>
+                    <PitchAndStatsPanel 
+                      players={allPlayersForTeam.filter(p => p.location !== PLAYER_LOCATIONS.UNREGISTERED)}
+                      onDropPlayer={onDropPlayer} 
+                      formationPositions={pitchPositions} 
+                    />
+                  </div>
+                 <div style={{marginTop: '20px'}}>
+                  <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.SUBS} title="Substitutes" titleColor="#fbbf24">
+                    {substitutePlayers.map(p => <Player key={p.id} player={p} />)}
+                  </DropArea>
+                 </div>
               </div>
-              <PitchAndStatsPanel 
-                players={allPlayersForTeam.filter(p => p.location !== PLAYER_LOCATIONS.UNREGISTERED)}
-                onDropPlayer={onDropPlayer} 
-                formationPositions={pitchPositions} 
-              />
             </div>
-           <div style={{marginTop: '20px'}}>
-            <DropArea onDropPlayer={onDropPlayer} locationId={PLAYER_LOCATIONS.SUBS} title="Substitutes" titleColor="#fbbf24">
-              {substitutePlayers.map(p => <Player key={p.id} player={p} />)}
-            </DropArea>
-           </div>
-        </div>
-      </div>
-      {errorMessage && <p style={{ color: '#f87171', fontWeight: 'bold', textAlign: 'center', marginTop: '15px', padding: '10px', backgroundColor: '#442222', borderRadius: '6px' }}>{errorMessage}</p>}
-      {ruleSet === 'UEFA' ? (
-        <UefaValidationStatus eligiblePlayers={eligiblePlayers} />
-      ) : (
-        <SuperLigValidationStatus eligiblePlayers={eligiblePlayers} />
-      )}
-      </>
-    )}
-    <FixturesModal
-      open={fixturesOpen}
-      onClose={() => setFixturesOpen(false)}
-      teamId={selectedTeam}
-      teamName={dummyTeams.find(t => t.id === selectedTeam)?.name || ''}
-    />
+            {errorMessage && <p style={{ color: '#f87171', fontWeight: 'bold', textAlign: 'center', marginTop: '15px', padding: '10px', backgroundColor: '#442222', borderRadius: '6px' }}>{errorMessage}</p>}
+            {ruleSet === 'UEFA' ? (
+              <UefaValidationStatus eligiblePlayers={eligiblePlayers} />
+            ) : (
+              <SuperLigValidationStatus eligiblePlayers={eligiblePlayers} />
+            )}
+          </>
+        )}
+
+        <FixturesModal
+          open={fixturesOpen}
+          onClose={() => setFixturesOpen(false)}
+          teamId={selectedTeam}
+          teamName={dummyTeams.find(t => t.id === selectedTeam)?.name || ''}
+        />
       </div>
     </DndProvider>
   );
