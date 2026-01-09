@@ -4,7 +4,6 @@ export const besiktasPlayers = [
 
   // Goalkeepers
   { id: 'bjk-ersin', name: 'Ersin Destanoğlu', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 24, hasBlueCard: false },
-  { id: 'bjk-mert-gunok', name: 'Mert Günok', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.GK, nationality: 'Turkish', age: 36, hasBlueCard: false },
   { id: 'bjk-emre-bilgin', name: 'Emre Bilgin', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 21, hasBlueCard: false },
   { id: 'bjk-emir-yasar', name: 'Emir Yaşar', teamId: 'besiktas', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.GK, nationality: 'Turkish', age: 19, hasBlueCard: false },
 

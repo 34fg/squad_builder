@@ -26,8 +26,6 @@ export const galatasarayPlayers = [
   { id: 'gs-lemina', name: 'Mario Lemina', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Gabonese', age: 31, hasBlueCard: false },
   { id: 'gs-efe-akman', name: 'Efe Akman', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 19, hasBlueCard: false },
   { id: 'gs-gabriel-sara', name: 'Gabriel Sara', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Brazilian', age: 26, hasBlueCard: false },
-  { id: 'gs-berkan-kutlu', name: 'Berkan Kutlu', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Turkish', age: 27, hasBlueCard: false },
-  { id: 'gs-eyup-aydin', name: 'Eyüp Aydın', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.NONE, position: POSITIONS.CM, nationality: 'Turkish', age: 21, hasBlueCard: false },
   { id: 'gs-gokdeniz-gurpuz', name: 'Gökdeniz Gürpüz', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 19, hasBlueCard: false },
   { id: 'gs-sirachan-nas', name: 'Siraçhan Nas', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.CLUB, position: POSITIONS.CM, nationality: 'Turkish', age: 23, hasBlueCard: false },
   { id: 'gs-baris-alper', name: 'Barış Alper Yılmaz', teamId: 'galatasaray', trainingStatus: TRAINING_STATUS.ASSOC, position: POSITIONS.LW, nationality: 'Turkish', age: 25, hasBlueCard: false },
